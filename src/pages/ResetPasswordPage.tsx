@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { AlertCircle, Key, CheckCircle } from 'lucide-react';
+import { AlertCircle, CheckCircle } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useTranslation } from 'react-i18next';
 import PasswordInput from '../components/PasswordInput';
@@ -61,6 +61,11 @@ const ResetPasswordPage: React.FC = () => {
     setError(null);
     
     try {
+      // Exchange the code for a session
+      const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(resetCode);
+      if (exchangeError) throw exchangeError;
+
+      // Update the user's password
       const { error } = await supabase.auth.updateUser({
         password: password
       });
