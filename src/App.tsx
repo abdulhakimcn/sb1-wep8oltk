@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider, useAuth } from './components/AuthProvider';
@@ -40,8 +40,24 @@ import AuthCallbackPage from './pages/AuthCallbackPage';
 import FindYourSpecialtyPage from './pages/FindYourSpecialtyPage';
 import HelpPage from './pages/HelpPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
+import { supabase } from './lib/supabase';
 
 console.log('App component loaded'); // Debug log
+
+// Handle verification code in URL
+const VerificationCodeHandler: React.FC = () => {
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+
+    if (code) {
+      console.log('Verification code detected in URL, redirecting to auth callback');
+      window.location.href = `/auth/callback?code=${code}`;
+    }
+  }, []);
+
+  return null;
+};
 
 const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   console.log('PrivateRoute rendering'); // Debug log
@@ -90,6 +106,8 @@ function App() {
       <AuthProvider>
         {renderTestDiv}
         <Router>
+          {/* Add the verification code handler at the root level */}
+          <VerificationCodeHandler />
           <Routes>
             <Route path="/auth" element={<Auth />} />
             <Route path="/auth/callback" element={<AuthCallbackPage />} />
