@@ -40,6 +40,7 @@ import AuthCallbackPage from './pages/AuthCallbackPage';
 import FindYourSpecialtyPage from './pages/FindYourSpecialtyPage';
 import HelpPage from './pages/HelpPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
+import ContactPage from './pages/ContactPage';
 import { supabase } from './lib/supabase';
 
 console.log('App component loaded'); // Debug log
@@ -101,6 +102,17 @@ function App() {
     </div>
   );
 
+  // Handle verification code in URL for root component
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+
+    if (code) {
+      console.log('Verification code detected in root component, redirecting to auth callback');
+      window.location.href = `/auth/callback?code=${code}`;
+    }
+  }, []);
+
   return (
     <HelmetProvider>
       <AuthProvider>
@@ -117,6 +129,7 @@ function App() {
             <Route path="/tour" element={<TourPage />} />
             <Route path="/test-account" element={<TestAccountPage />} />
             <Route path="/help" element={<HelpPage />} />
+            <Route path="/contact" element={<ContactPage />} />
             <Route path="/onboarding" element={
               <PrivateRoute>
                 <OnboardingPage />
