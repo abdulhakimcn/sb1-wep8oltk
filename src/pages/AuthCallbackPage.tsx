@@ -1,46 +1,54 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 
 const AuthCallbackPage: React.FC = () => {
   const navigate = useNavigate();
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Process the OAuth callback
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_IN' && session) {
-        // Redirect to onboarding or dashboard based on user status
-        navigate('/onboarding');
-      } else if (event === 'SIGNED_OUT') {
-        navigate('/auth');
-      }
-    });
-
-    // Check for hash fragment that might contain the access token
-    const hashParams = new URLSearchParams(window.location.hash.substring(1));
-    const accessToken = hashParams.get('access_token');
-    
-    if (accessToken) {
-      // If we have an access token in the URL, we can assume the user has been authenticated
-      // The onAuthStateChange listener above will handle the redirect
-      console.log('Access token found in URL');
-    } else {
-      // If no access token is found, check if we're already signed in
-      const checkSession = async () => {
-        const { data } = await supabase.auth.getSession();
+    const handleAuthCallback = async () => {
+      try {
+        // Process the OAuth callback or email verification
+        const { data, error } = await supabase.auth.exchangeCodeForSession(window.location.href);
+        
+        if (error) {
+          console.error('Auth callback error:', error);
+          setError(error.message);
+          // Still navigate to auth page after a delay
+          setTimeout(() => navigate('/auth'), 3000);
+          return;
+        }
+        
         if (data.session) {
-          navigate('/onboarding');
+          console.log('Session established successfully');
+          // Check if user has a profile
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('user_id', data.session.user.id)
+            .single();
+            
+          if (profile) {
+            // User has a profile, redirect to MyZone
+            navigate('/myzone');
+          } else {
+            // User needs to complete onboarding
+            navigate('/onboarding');
+          }
         } else {
+          // No session, redirect to auth page
           navigate('/auth');
         }
-      };
-      
-      checkSession();
-    }
-
-    return () => {
-      authListener.subscription.unsubscribe();
+      } catch (err) {
+        console.error('Error in auth callback:', err);
+        setError(err instanceof Error ? err.message : 'An unknown error occurred');
+        // Still navigate to auth page after a delay
+        setTimeout(() => navigate('/auth'), 3000);
+      }
     };
+
+    handleAuthCallback();
   }, [navigate]);
 
   return (
@@ -51,8 +59,17 @@ const AuthCallbackPage: React.FC = () => {
           alt="Dr.Zone AI Logo" 
           className="h-16 w-16 mx-auto mb-4 animate-pulse" 
         />
-        <h2 className="text-xl font-semibold mb-2">Completing authentication...</h2>
-        <p className="text-gray-600">Please wait while we sign you in.</p>
+        <h2 className="text-xl font-semibold mb-2">
+          {error ? 'Authentication Error' : 'Completing authentication...'}
+        </h2>
+        {error ? (
+          <div>
+            <p className="text-red-600 mb-4">{error}</p>
+            <p className="text-gray-600">Redirecting to login page...</p>
+          </div>
+        ) : (
+          <p className="text-gray-600">Please wait while we sign you in.</p>
+        )}
       </div>
     </div>
   );
