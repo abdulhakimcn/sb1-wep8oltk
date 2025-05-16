@@ -19,7 +19,7 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { phone, code, action, channel, userData } = await req.json();
+    const { phone, code, action, channel = 'sms', userData } = await req.json();
 
     if (!phone) {
       throw new Error('Phone number is required');
@@ -91,10 +91,7 @@ Deno.serve(async (req) => {
           throw new Error('Invalid verification code');
         }
       } else {
-        // For real phones, use Supabase verification
-        // In a real implementation, this would handle both SMS and WhatsApp verification
-        // For now, we'll use Supabase's built-in SMS verification
-        
+        // For real phones, use the appropriate channel
         if (channel === 'whatsapp') {
           // In a real implementation, this would call a WhatsApp API
           // For now, we'll simulate success
