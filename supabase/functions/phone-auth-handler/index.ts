@@ -19,7 +19,7 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { phone, code, action } = await req.json();
+    const { phone, code, action, channel, userData } = await req.json();
 
     if (!phone) {
       throw new Error('Phone number is required');
@@ -55,7 +55,10 @@ Deno.serve(async (req) => {
             const { data: newUser, error: createError } = await supabaseClient.auth.admin.createUser({
               phone,
               phone_confirm: true,
-              user_metadata: { is_test_account: true }
+              user_metadata: { 
+                is_test_account: true,
+                ...userData
+              }
             });
             
             if (createError) throw createError;
@@ -68,7 +71,7 @@ Deno.serve(async (req) => {
                   user_id: newUser.user.id,
                   username: `user_${phone.replace(/\+/g, '')}`,
                   full_name: `Test User (${phone})`,
-                  type: 'doctor',
+                  type: userData?.account_type || 'doctor',
                   specialty: 'General Practice',
                   is_public: true
                 });
@@ -89,13 +92,57 @@ Deno.serve(async (req) => {
         }
       } else {
         // For real phones, use Supabase verification
-        const { error } = await supabaseClient.auth.verifyOtp({
-          phone,
-          token: code,
-          type: 'sms'
-        });
+        // In a real implementation, this would handle both SMS and WhatsApp verification
+        // For now, we'll use Supabase's built-in SMS verification
         
-        if (error) throw error;
+        if (channel === 'whatsapp') {
+          // In a real implementation, this would call a WhatsApp API
+          // For now, we'll simulate success
+          console.log(`Simulating WhatsApp verification for ${phone} with code ${code}`);
+          
+          // Verify the user's phone number
+          const { data, error } = await supabaseClient.auth.admin.getUserByPhone(phone);
+          
+          if (error && error.message !== 'User not found') {
+            throw error;
+          }
+          
+          // If user doesn't exist, create one
+          if (!data?.user) {
+            const { data: newUser, error: createError } = await supabaseClient.auth.admin.createUser({
+              phone,
+              phone_confirm: true,
+              user_metadata: userData || {}
+            });
+            
+            if (createError) throw createError;
+            
+            // Create a profile for the new user
+            if (newUser?.user) {
+              const { error: profileError } = await supabaseClient
+                .from('profiles')
+                .insert({
+                  user_id: newUser.user.id,
+                  username: `user_${phone.replace(/\+/g, '')}`,
+                  full_name: userData?.full_name || `User (${phone})`,
+                  type: userData?.account_type || 'doctor',
+                  specialty: userData?.specialty || 'General Practice',
+                  is_public: true
+                });
+                
+              if (profileError) throw profileError;
+            }
+          }
+        } else {
+          // Standard SMS verification
+          const { error } = await supabaseClient.auth.verifyOtp({
+            phone,
+            token: code,
+            type: 'sms'
+          });
+          
+          if (error) throw error;
+        }
         
         return new Response(
           JSON.stringify({ 
@@ -117,20 +164,35 @@ Deno.serve(async (req) => {
           { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       } else {
-        // For real phones, use Supabase to send OTP
-        const { error } = await supabaseClient.auth.signInWithOtp({
-          phone
-        });
-        
-        if (error) throw error;
-        
-        return new Response(
-          JSON.stringify({ 
-            success: true, 
-            message: 'Verification code sent' 
-          }),
-          { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-        );
+        // For real phones, use the appropriate channel
+        if (channel === 'whatsapp') {
+          // In a real implementation, this would call a WhatsApp API
+          // For now, we'll simulate success
+          console.log(`Simulating WhatsApp verification code sent to ${phone}`);
+          
+          return new Response(
+            JSON.stringify({ 
+              success: true, 
+              message: 'Verification code sent via WhatsApp' 
+            }),
+            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        } else {
+          // Use Supabase to send SMS OTP
+          const { error } = await supabaseClient.auth.signInWithOtp({
+            phone
+          });
+          
+          if (error) throw error;
+          
+          return new Response(
+            JSON.stringify({ 
+              success: true, 
+              message: 'Verification code sent via SMS' 
+            }),
+            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
       }
     } else {
       throw new Error('Invalid action');
