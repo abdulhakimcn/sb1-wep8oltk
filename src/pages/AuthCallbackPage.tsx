@@ -1,16 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 
 const AuthCallbackPage: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [error, setError] = useState<string | null>(null);
+  const [processing, setProcessing] = useState(true);
 
   useEffect(() => {
     const handleAuthCallback = async () => {
       try {
+        console.log('Auth callback page loaded, processing authentication...');
+        
+        // Get the full URL including hash fragments
+        const fullUrl = window.location.href;
+        
         // Process the OAuth callback or email verification
-        const { data, error } = await supabase.auth.exchangeCodeForSession(window.location.href);
+        const { data, error } = await supabase.auth.exchangeCodeForSession(fullUrl);
         
         if (error) {
           console.error('Auth callback error:', error);
@@ -45,11 +52,13 @@ const AuthCallbackPage: React.FC = () => {
         setError(err instanceof Error ? err.message : 'An unknown error occurred');
         // Still navigate to auth page after a delay
         setTimeout(() => navigate('/auth'), 3000);
+      } finally {
+        setProcessing(false);
       }
     };
 
     handleAuthCallback();
-  }, [navigate]);
+  }, [navigate, location]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -68,7 +77,12 @@ const AuthCallbackPage: React.FC = () => {
             <p className="text-gray-600">Redirecting to login page...</p>
           </div>
         ) : (
-          <p className="text-gray-600">Please wait while we sign you in.</p>
+          <div>
+            <div className="flex justify-center mb-4">
+              <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary-500"></div>
+            </div>
+            <p className="text-gray-600">Please wait while we sign you in.</p>
+          </div>
         )}
       </div>
     </div>
