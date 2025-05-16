@@ -27,9 +27,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: true,
-    flowType: 'pkce',
-    // Add the redirect URLs explicitly
-    redirectTo: `${window.location.origin}/auth/callback`
+    flowType: 'pkce'
   }
 });
 
