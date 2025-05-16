@@ -75,4 +75,68 @@ const PhoneAuthForm: React.FC<PhoneAuthFormProps> = ({ onBackToEmail, accountTyp
     if (!validatePhone(phoneNumber)) {
       setErrorMessage(isArabic
         ? "يرجى إدخال رقم هاتف صالح مع رمز البلد (مثال: +967774168043)"
-        : "Please
+        : "Please enter a valid phone number with country code (e.g., +967774168043)");
+      return;
+    }
+    
+    setIsLoading(true);
+    setErrorMessage(null);
+    
+    try {
+      // For test phone numbers, we'll simulate sending a code
+      if (Object.keys(TEST_PHONES).includes(phoneNumber)) {
+        console.log(`Test phone detected: ${phoneNumber}`);
+        // Simulate a delay
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        setStep('verification');
+      } else {
+        // For real phone numbers, use Supabase
+        // Determine which channel to use based on the verification method
+        const channel = verificationMethod === 'whatsapp' ? 'whatsapp' : 'sms';
+        
+        // In a real implementation, this would call the phone-auth-handler edge function
+        // For now, we'll use Supabase's built-in OTP functionality
+        const { error } = await supabase.auth.signInWithOtp({
+          phone: phoneNumber,
+          options: {
+            channel: 'sms' // Supabase only supports SMS currently
+          }
+        });
+        
+        if (error) throw error;
+        
+        setStep('verification');
+      }
+    } catch (error) {
+      console.error('Error sending verification code:', error);
+      setErrorMessage(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleVerifyCode = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!verificationCode) {
+      setErrorMessage(isArabic
+        ? "يرجى إدخال رمز التحقق"
+        : "Please enter the verification code");
+      return;
+    }
+    
+    // For organization accounts, validate additional fields
+    if (accountType === 'organization' && step === 'verification') {
+      if (!orgName || !orgType || !orgCountry) {
+        setErrorMessage(isArabic
+          ? "يرجى ملء جميع حقول المؤسسة المطلوبة"
+          : "Please fill in all required organization fields");
+        return;
+      }
+    }
+    
+    setIsLoading(true);
+    setErrorMessage(null);
+    
+    try {
+      // For test phone numbers, check against our pre
