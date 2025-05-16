@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { AlertCircle, Mail, Key, Facebook, Apple, Twitter, Linkedin, Github, Building, User } from 'lucide-react';
 import { supabase, isValidEmailDomain, ALLOWED_EMAIL_DOMAINS } from '../lib/supabase';
 import PasswordInput from './PasswordInput';
+import { Link } from 'react-router-dom';
 
 interface AuthFormProps {
   view: 'sign_in' | 'sign_up' | 'forgotten_password';
@@ -162,7 +163,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ view, onViewChange, accountType = '
         
       } else if (view === 'forgotten_password') {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
-          redirectTo: `${window.location.origin}/auth?view=update_password`
+          redirectTo: `${window.location.origin}/reset-password`
         });
         
         if (error) throw error;
