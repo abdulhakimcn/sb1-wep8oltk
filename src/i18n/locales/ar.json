@@ -1,0 +1,404 @@
+{
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "share": "مشاركة",
+    "search": "بحث",
+    "filter": "تصفية",
+    "viewAll": "عرض الكل",
+    "comingSoon": "قريباً",
+    "upload": "رفع",
+    "settings": "الإعدادات",
+    "post": "نشر",
+    "posting": "جاري النشر...",
+    "submit": "إرسال",
+    "submitting": "جاري الإرسال...",
+    "back": "رجوع",
+    "next": "التالي",
+    "finish": "إنهاء",
+    "continue": "متابعة",
+    "learnMore": "اقرأ المزيد",
+    "readMore": "قراءة المزيد",
+    "joinNow": "انضم الآن",
+    "getStarted": "ابدأ الآن",
+    "seeAll": "عرض الكل",
+    "showMore": "عرض المزيد",
+    "showLess": "عرض أقل",
+    "followers": "المتابعين",
+    "following": "المتابَعين",
+    "writeComment": "اكتب تعليقاً...",
+    "company": "الشركة",
+    "about": "حول",
+    "privacy": "الخصوصية",
+    "terms": "الشروط",
+    "contact": "اتصل بنا",
+    "allRightsReserved": "جميع الحقوق محفوظة.",
+    "madeWith": "صُنع بـ",
+    "forMedicalCommunity": "للمجتمع الطبي",
+    "copy": "نسخ",
+    "copied": "تم النسخ!",
+    "privacyPolicy": "سياسة الخصوصية",
+    "termsOfService": "شروط استخدام المنصة وخصوصية البيانات الطبية"
+  },
+  "auth": {
+    "signIn": "تسجيل الدخول",
+    "signUp": "إنشاء حساب جديد",
+    "signOut": "تسجيل الخروج",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "orContinueWith": "أو المتابعة باستخدام",
+    "createAccount": "إنشاء حساب",
+    "alreadyHaveAccount": "لديك حساب بالفعل؟",
+    "dontHaveAccount": "ليس لديك حساب؟",
+    "resetPassword": "إعادة تعيين كلمة المرور",
+    "verifyEmail": "تأكيد البريد الإلكتروني",
+    "resendVerification": "إعادة إرسال رمز التأكيد",
+    "welcomeToMyDrZone": "مرحباً بك في حكيم زون",
+    "joinExclusiveNetwork": "منصة طبية خاصة بالأطباء فقط، صمّمت لتكون منطقتك الآمنة.",
+    "developerMode": "وضع المطور",
+    "devModeWarning": "أنت تستخدم وضع المطور. هذا للاختبار فقط وليس للاستخدام الإنتاجي.",
+    "devUsername": "اسم مستخدم المطور",
+    "devLogin": "تسجيل دخول المطور",
+    "backToRegularLogin": "العودة إلى تسجيل الدخول العادي",
+    "invalidCredentials": "❌ لم نتمكن من تسجيل الدخول. تأكد من صحة البريد وكلمة المرور، أو جرّب خيار \"نسيت كلمة المرور؟\""
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "myZone": "منطقتي",
+    "zoneTube": "زون تيوب",
+    "zoneCast": "زون كاست",
+    "chatZone": "منطقة الدردشة",
+    "zoneGBT": "زون جي بي تي",
+    "zomZone": "منطقة زوم",
+    "researchZone": "منطقة البحث",
+    "jobsZone": "منطقة الوظائف",
+    "medicalTools": "الأدوات الطبية",
+    "zoneMatch": "زون ماتش",
+    "conferenceZone": "منطقة المؤتمرات",
+    "profile": "الملف الشخصي",
+    "zones": "المناطق"
+  },
+  "home": {
+    "hero": {
+      "title": "منصة حكيم زون الذكية",
+      "subtitle": "تواصل وتعاون وانمو مع منصة حصرية مصممة من قبل الأطباء، للأطباء.",
+      "cta": {
+        "join": "انضم الآن",
+        "tour": "جولة تعريفية"
+      }
+    },
+    "trusted": {
+      "title": "موثوق به من قبل المؤسسات الطبية الرائدة"
+    },
+    "zones": {
+      "description": "كل منطقة مصممة خصيصًا لتعزيز جوانب مختلفة من ممارستك الطبية ومسيرتك المهنية."
+    },
+    "features": {
+      "title": "مصمم للمتخصصين في المجال الطبي",
+      "subtitle": "تجربة منصة تفهم الاحتياجات الفريدة لمقدمي الرعاية الصحية.",
+      "security": {
+        "title": "أمان بمستوى طبي",
+        "description": "تشفير وضوابط خصوصية رائدة في الصناعة مصممة خصيصًا للمتخصصين في الرعاية الصحية."
+      },
+      "verified": {
+        "title": "مجتمع موثق",
+        "description": "تواصل مع متخصصين طبيين حقيقيين وموثقين في بيئة موثوقة."
+      },
+      "ai": {
+        "title": "أدوات مدعومة بالذكاء الاصطناعي",
+        "description": "ميزات ذكية تتكيف مع تخصصك وتساعدك على العمل بكفاءة أكبر."
+      }
+    },
+    "cta": {
+      "title": "انضم إلى الثورة الطبية",
+      "subtitle": "حكيم زون ليست مجرد منصة… إنها ثورة معرفية طبية متكاملة. انضم الآن وكن جزءًا من جيل الأطباء الذكي.",
+      "createAccount": "إنشاء حسابك",
+      "existingUser": "مستخدم حالي؟ تسجيل الدخول"
+    }
+  },
+  "myZone": {
+    "title": "ماي زون",
+    "subtitle": "مكانك الآمن لنشر منشوراتك وتبادل الخبرات الطبية مع زملائك",
+    "postPrompt": "ما الذي يدور في ذهنك، دكتور؟",
+    "sharePrompt": "شارك شيئًا مع المجتمع الطبي...",
+    "welcomeMessage": "مرحباً بك! شارك رؤاك الطبية مع المجتمع",
+    "filters": {
+      "title": "التصفية",
+      "specialty": "التخصص",
+      "language": "اللغة",
+      "all": "الكل"
+    },
+    "about": "نبذة",
+    "credentials": "المؤهلات",
+    "publications": "المنشورات",
+    "activity": "النشاط",
+    "stats": {
+      "title": "إحصائيات النشاط",
+      "posts": "منشوراتك",
+      "comments": "التعليقات",
+      "engagement": "التفاعل"
+    },
+    "pinnedPosts": "المنشورات المثبتة",
+    "communityPosts": "منشورات المجتمع",
+    "loadMore": "تحميل المزيد من المنشورات",
+    "welcome": {
+      "title": "مرحبًا بك في حكيم زون!",
+      "description": "ابدأ بمشاركة رؤاك الطبية مع مجتمعك.",
+      "createPost": "إنشاء أول منشور لك"
+    }
+  },
+  "post": {
+    "create": "إنشاء منشور",
+    "photo": "صورة",
+    "document": "مستند",
+    "location": "الموقع",
+    "privacy": {
+      "public": "عام",
+      "users": "مستخدمو حكيم زون",
+      "connections": "العلاقات",
+      "publicDesc": "يمكن للجميع رؤية هذا المنشور",
+      "usersDesc": "يمكن لمستخدمي حكيم زون فقط رؤية هذا المنشور",
+      "connectionsDesc": "يمكن لعلاقاتك فقط رؤية هذا المنشور"
+    },
+    "selectSpecialty": "اختر التخصص",
+    "addToPost": "أضف إلى منشورك",
+    "specialties": {
+      "cardiology": "أمراض القلب",
+      "neurology": "الأعصاب",
+      "pediatrics": "طب الأطفال",
+      "oncology": "الأورام",
+      "surgery": "الجراحة"
+    }
+  },
+  "profile": {
+    "about": "نبذة",
+    "credentials": "المؤهلات",
+    "publications": "المنشورات",
+    "activity": "النشاط",
+    "getVerified": "الحصول على توثيق",
+    "editProfile": "تعديل الملف الشخصي",
+    "settings": "الإعدادات",
+    "medicalProfessional": "متخصص طبي",
+    "noBioProvided": "لم يتم تقديم نبذة بعد. أخبر الآخرين عن خلفيتك الطبية واهتماماتك وخبراتك.",
+    "verification": {
+      "title": "توثيق المتخصص الطبي",
+      "description": "للتحقق من حالتك كمتخصص طبي، يرجى تقديم بيانات اعتمادك وتحميل الوثائق الداعمة.",
+      "licenseNumber": "رقم الترخيص الطبي",
+      "issuingAuthority": "الجهة المصدرة/الولاية",
+      "specialtyBoard": "شهادة مجلس التخصص",
+      "uploadDocument": "يرجى تحميل صورة واضحة أو مسح ضوئي لترخيصك الطبي أو شهادة المجلس.",
+      "documentUrl": "أدخل رابط المستند",
+      "process": "عملية التحقق:",
+      "step1": "قدم بيانات اعتمادك",
+      "step2": "قم بتحميل وثائق التحقق",
+      "step3": "مراجعة من قبل فريقنا الطبي",
+      "step4": "احصل على شارة التوثيق"
+    }
+  },
+  "onboarding": {
+    "completeProfile": "أكمل ملفك الشخصي",
+    "tellAboutYourself": "أخبرنا عن نفسك للبدء",
+    "iAmA": "أنا...",
+    "doctor": "طبيب",
+    "individualMedical": "متخصص طبي فردي",
+    "organization": "مؤسسة",
+    "hospitalClinic": "مستشفى، عيادة، أو شركة",
+    "fullName": "الاسم الكامل",
+    "organizationName": "اسم المؤسسة",
+    "username": "اسم المستخدم",
+    "specialty": "التخصص",
+    "organizationType": "نوع المؤسسة",
+    "selectType": "اختر النوع...",
+    "hospital": "مستشفى",
+    "clinic": "عيادة",
+    "medicalCompany": "شركة طبية",
+    "registrationNumber": "رقم التسجيل",
+    "creatingProfile": "جاري إنشاء الملف الشخصي...",
+    "completeSetup": "إكمال الإعداد"
+  },
+  "chat": {
+    "title": "منطقة الدردشة",
+    "subtitle": "مراسلة آمنة للمتخصصين الطبيين",
+    "newChat": "دردشة جديدة",
+    "searchDoctors": "بحث عن أطباء...",
+    "noMessages": "لا توجد رسائل بعد",
+    "startConversation": "ابدأ المحادثة",
+    "typeMessage": "اكتب رسالتك...",
+    "noFriends": "لم يتم العثور على أصدقاء",
+    "addContact": "إضافة جهة اتصال جديدة",
+    "online": "متصل",
+    "lastSeen": "شوهد آخر مرة",
+    "suggested": "مقترح",
+    "friends": "الأصدقاء",
+    "searchByNameOrSpecialty": "البحث بالاسم أو التخصص...",
+    "startChat": "بدء الدردشة",
+    "medicalProfessional": "متخصص طبي",
+    "selectFriendPrompt": "حدد صديقًا لبدء محادثة أو إنشاء دردشة جديدة.",
+    "inboxAssistant": "مساعد البريد الوارد",
+    "externalMessages": "الرسائل الخارجية",
+    "inboxAssistantTitle": "مركز الاتصالات الموحد",
+    "inboxAssistantDescription": "هذا هو صندوق الوارد الذكي الذي ينقل الرسائل من المنصات الخارجية مثل واتساب وتيليجرام وويتشات.",
+    "selectMessagePrompt": "حدد رسالة من اليسار للعرض والرد.",
+    "replyTo": "الرد على",
+    "typeReply": "اكتب ردك...",
+    "askKimsoulHelp": "اطلب من كيمسول المساعدة في الرد",
+    "kimsoulSuggestion": "رد كيمسول المقترح",
+    "useReply": "استخدم الرد",
+    "discardReply": "تجاهل",
+    "generating": "جاري التوليد..."
+  },
+  "zoneGBT": {
+    "title": "زون جي بي تي",
+    "subtitle": "مساعدك الطبي الذكي",
+    "newConversation": "محادثة جديدة",
+    "searchConversations": "بحث في المحادثات",
+    "recent": "الأخيرة",
+    "askQuestion": "اسأل زون جي بي تي سؤالاً...",
+    "thinking": "يفكر...",
+    "disclaimer": "قد ينتج زون جي بي تي معلومات غير دقيقة. تحقق دائمًا من المعلومات الطبية المهمة.",
+    "suggestions": {
+      "summarize": "لخص هذه المقالة",
+      "writePost": "ساعدني في كتابة منشور",
+      "explainECG": "اشرح نتيجة تخطيط القلب"
+    }
+  },
+  "zoneTube": {
+    "title": "زون تيوب",
+    "subtitle": "فيديوهات طبية وموارد تعليمية",
+    "uploadVideo": "رفع فيديو",
+    "quickUpload": "رفع سريع",
+    "allVideos": "جميع الفيديوهات",
+    "trending": "الرائج",
+    "newest": "الأحدث",
+    "premium": "المميز",
+    "featured": "فيديو مميز",
+    "trendingWeek": "الرائج هذا الأسبوع",
+    "viewAll": "عرض الكل",
+    "noVideos": "لم يتم العثور على فيديوهات",
+    "tryAdjusting": "حاول تعديل عوامل التصفية",
+    "clearFilters": "مسح التصفية",
+    "joinToday": "انضم إلى حكيم زون اليوم",
+    "joinSubtitle": "سجل للوصول إلى المحتوى المميز، وحفظ الفيديوهات المفضلة، ومشاركة معرفتك الطبية مع المجتمع."
+  },
+  "zoneCast": {
+    "title": "زون كاست",
+    "subtitle": "بودكاست طبي من أطباء خبراء",
+    "uploadPodcast": "رفع بودكاست",
+    "quickUpload": "رفع سريع",
+    "featuredEpisode": "حلقة مميزة",
+    "allEpisodes": "جميع الحلقات",
+    "noPodcasts": "لم يتم العثور على بودكاست",
+    "listenNow": "استمع الآن",
+    "joinDrZone": "انضم إلى حكيم زون",
+    "accessContent": "سجل للوصول إلى المزيد من المحتوى ومشاركة معرفتك الطبية مع المجتمع."
+  },
+  "zonematch": {
+    "title": "زون ماتش",
+    "subtitle": "تواصل مع أطباء يشاركونك نفس الاهتمامات",
+    "dreamBottle": {
+      "title": "قارورة الأحلام",
+      "description": "اكتب حلمك وارمه إلى السماء... ربما يلتقي بحلم شخص آخر",
+      "startNow": "ابدأ الآن"
+    },
+    "personalityTest": {
+      "title": "اختبار التوافق الطبي",
+      "description": "اكتشف نمط شخصيتك الطبية وتواصل مع من يشبهونك",
+      "startNow": "ابدأ الآن"
+    },
+    "caseOfTheDay": {
+      "title": "حالة اليوم",
+      "description": "اختبر مهاراتك التشخيصية مع حالة طبية جديدة كل يوم",
+      "startNow": "ابدأ الآن",
+      "patientInfo": "معلومات المريض",
+      "clinicalFindings": "النتائج السريرية",
+      "labResults": "نتائج المختبر",
+      "imaging": "التصوير",
+      "whatIsYourDiagnosis": "ما هو تشخيصك؟",
+      "submitAnswer": "إرسال الإجابة",
+      "correctAnswer": "الإجابة الصحيحة",
+      "explanation": "الشرح",
+      "references": "المراجع",
+      "discussion": "المناقشة",
+      "writeComment": "اكتب تعليقًا...",
+      "yourStats": "إحصائياتك",
+      "correctAnswers": "الإجابات الصحيحة",
+      "participation": "المشاركة",
+      "streak": "التتابع",
+      "nextCase": "الحالة التالية",
+      "casesCompleted": "الحالات المكتملة",
+      "accuracy": "الدقة"
+    },
+    "doctorOrMyth": {
+      "title": "حقيقة أم خرافة",
+      "description": "اختبر معرفتك الطبية وقدرتك على تمييز الحقائق من الخرافات",
+      "startNow": "ابدأ الآن",
+      "fact": "حقيقة",
+      "myth": "خرافة",
+      "isThisFactOrMyth": "هل هذه حقيقة أم خرافة طبية؟",
+      "correctAnswer": "الإجابة الصحيحة",
+      "explanation": "الشرح",
+      "source": "المصدر",
+      "yourScore": "نتيجتك",
+      "correct": "صحيح",
+      "incorrect": "خطأ",
+      "streak": "التتابع",
+      "leaderboard": "لوحة المتصدرين",
+      "nextStatement": "العبارة التالية",
+      "dailyChallenge": "تحدي اليوم",
+      "timeRemaining": "الوقت المتبقي"
+    },
+    "patientSpeaks": {
+      "title": "المريض يتحدث",
+      "description": "استمع إلى شكاوى المرضى وقم بتشخيصها بناءً على وصفهم",
+      "startNow": "ابدأ الآن",
+      "patientMessage": "رسالة المريض",
+      "whatIsYourDiagnosis": "ما هو تشخيصك؟",
+      "submitDiagnosis": "إرسال التشخيص",
+      "correctDiagnosis": "التشخيص الصحيح",
+      "explanation": "الشرح",
+      "clinicalPearls": "اللآلئ السريرية",
+      "nextPatient": "المريض التالي",
+      "listenToAudio": "استمع إلى التسجيل الصوتي",
+      "typeYourDiagnosis": "اكتب تشخيصك...",
+      "patientHistory": "تاريخ المريض",
+      "differentialDiagnosis": "التشخيص التفريقي"
+    },
+    "spotTheMistake": {
+      "title": "اكتشف الخطأ",
+      "description": "حدد الأخطاء في الصور الطبية والنماذج السريرية",
+      "startNow": "ابدأ الآن",
+      "clickOnMistake": "انقر على موقع الخطأ في الصورة",
+      "zoomIn": "تكبير",
+      "zoomOut": "تصغير",
+      "needHint": "تحتاج تلميح؟",
+      "showHint": "عرض تلميح",
+      "submitAnswer": "إرسال الإجابة",
+      "correctSpot": "الموقع الصحيح",
+      "mistakeExplanation": "شرح الخطأ",
+      "clinicalImplications": "الآثار السريرية",
+      "nextChallenge": "التحدي التالي",
+      "imageType": "نوع الصورة",
+      "difficultyLevel": "مستوى الصعوبة"
+    }
+  },
+  "zomZone": {
+    "subtitle": "اجتماعات فيديو احترافية للاستشارات الطبية"
+  },
+  "researchZone": {
+    "subtitle": "الوصول إلى أحدث الأبحاث والمنشورات الطبية"
+  },
+  "jobsZone": {
+    "subtitle": "البحث عن ونشر فرص العمل الطبية"
+  },
+  "medicalTools": {
+    "subtitle": "آلات حاسبة ومراجع أساسية للأطباء"
+  },
+  "conferenceZone": {
+    "subtitle": "مؤتمرات وفعاليات طبية"
+  }
+}

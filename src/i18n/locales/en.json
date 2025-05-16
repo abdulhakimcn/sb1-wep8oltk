@@ -1,0 +1,419 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "share": "Share",
+    "search": "Search",
+    "filter": "Filter",
+    "viewAll": "View All",
+    "comingSoon": "Coming Soon",
+    "upload": "Upload",
+    "settings": "Settings",
+    "post": "Post",
+    "posting": "Posting...",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "back": "Back",
+    "next": "Next",
+    "finish": "Finish",
+    "continue": "Continue",
+    "learnMore": "Learn More",
+    "readMore": "Read More",
+    "joinNow": "Join Now",
+    "getStarted": "Get Started",
+    "seeAll": "See All",
+    "showMore": "Show More",
+    "showLess": "Show Less",
+    "followers": "Followers",
+    "following": "Following",
+    "writeComment": "Write a comment...",
+    "company": "Company",
+    "about": "About",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "contact": "Contact",
+    "allRightsReserved": "All rights reserved.",
+    "madeWith": "Made with",
+    "forMedicalCommunity": "for the medical community",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service and Medical Data Privacy"
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "orContinueWith": "Or continue with",
+    "createAccount": "Create Account",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "resetPassword": "Reset Password",
+    "verifyEmail": "Verify Email",
+    "resendVerification": "Resend Verification",
+    "welcomeToMyDrZone": "Welcome to Dr.Zone AI",
+    "joinExclusiveNetwork": "Join the exclusive medical professional network",
+    "developerMode": "Developer Mode",
+    "devModeWarning": "You are using developer mode. This is for testing only and not for production use.",
+    "devUsername": "Developer Username",
+    "devLogin": "Developer Login",
+    "backToRegularLogin": "Back to Regular Login",
+    "invalidCredentials": "❌ We couldn't sign you in. Please double-check your email and password, or try the \"Forgot your password?\" option."
+  },
+  "nav": {
+    "home": "Home",
+    "myZone": "MyZone",
+    "zoneTube": "ZoneTube",
+    "zoneCast": "ZoneCast",
+    "chatZone": "ChatZone",
+    "zoneGBT": "ZoneGBT",
+    "zomZone": "ZomZone",
+    "researchZone": "ResearchZone",
+    "jobsZone": "JobsZone",
+    "medicalTools": "Medical Tools",
+    "zoneMatch": "ZoneMatch",
+    "conferenceZone": "Conference Zone",
+    "profile": "Profile",
+    "zones": "Zones"
+  },
+  "home": {
+    "hero": {
+      "title": "The Complete Digital Ecosystem for Medical Professionals",
+      "subtitle": "Connect, collaborate, and grow with an exclusive platform designed by doctors, for doctors.",
+      "cta": {
+        "join": "Join Now",
+        "tour": "Take a Tour of Dr.Zone"
+      }
+    },
+    "trusted": {
+      "title": "Trusted by leading medical institutions"
+    },
+    "zones": {
+      "description": "Each zone is specifically designed to enhance different aspects of your medical practice and career."
+    },
+    "features": {
+      "title": "Built for Medical Professionals",
+      "subtitle": "Experience a platform that understands the unique needs of healthcare providers.",
+      "security": {
+        "title": "Medical-Grade Security",
+        "description": "Industry-leading encryption and privacy controls designed specifically for healthcare professionals."
+      },
+      "verified": {
+        "title": "Verified Community",
+        "description": "Connect with authentic, verified medical professionals in a trusted environment."
+      },
+      "ai": {
+        "title": "AI-Powered Tools",
+        "description": "Smart features that adapt to your specialty and help you work more efficiently."
+      }
+    },
+    "cta": {
+      "title": "Join the Medical Revolution",
+      "subtitle": "Dr.Zone AI is not just a platform... it's a complete medical knowledge revolution. Join now and be part of the intelligent generation of doctors.",
+      "createAccount": "Create Your Account",
+      "existingUser": "Existing User? Sign In"
+    }
+  },
+  "myZone": {
+    "title": "MyZone",
+    "subtitle": "Your secure space to share posts and exchange medical expertise with colleagues",
+    "postPrompt": "What's on your mind, Doctor?",
+    "sharePrompt": "Share something with the medical community...",
+    "welcomeMessage": "Welcome! Share your medical insights with the community",
+    "filters": {
+      "title": "Filters",
+      "specialty": "Specialty",
+      "language": "Language",
+      "all": "All"
+    },
+    "about": "About",
+    "credentials": "Credentials",
+    "publications": "Publications",
+    "activity": "Activity",
+    "stats": {
+      "title": "Activity Stats",
+      "posts": "Your Posts",
+      "comments": "Comments",
+      "engagement": "Engagement"
+    },
+    "pinnedPosts": "Pinned Posts",
+    "communityPosts": "Community Posts",
+    "loadMore": "Load More Posts",
+    "welcome": {
+      "title": "Welcome to Dr.Zone AI!",
+      "description": "Start sharing your medical insights with your community.",
+      "createPost": "Create Your First Post"
+    }
+  },
+  "post": {
+    "create": "Create Post",
+    "photo": "Photo",
+    "document": "Document",
+    "location": "Location",
+    "privacy": {
+      "public": "Public",
+      "users": "Dr.Zone Users",
+      "connections": "Connections",
+      "publicDesc": "Anyone can see this post",
+      "usersDesc": "Only Dr.Zone users can see this post",
+      "connectionsDesc": "Only your connections can see this post"
+    },
+    "selectSpecialty": "Select Specialty",
+    "addToPost": "Add to your post",
+    "specialties": {
+      "cardiology": "Cardiology",
+      "neurology": "Neurology",
+      "pediatrics": "Pediatrics",
+      "oncology": "Oncology",
+      "surgery": "Surgery"
+    }
+  },
+  "profile": {
+    "about": "About",
+    "credentials": "Credentials",
+    "publications": "Publications",
+    "activity": "Activity",
+    "getVerified": "Get Verified",
+    "editProfile": "Edit Profile",
+    "settings": "Settings",
+    "medicalProfessional": "Medical Professional",
+    "noBioProvided": "No bio provided yet. Tell others about your medical background, interests, and expertise.",
+    "verification": {
+      "title": "Medical Professional Verification",
+      "description": "To verify your medical professional status, please provide your credentials and upload supporting documentation.",
+      "licenseNumber": "Medical License Number",
+      "issuingAuthority": "Issuing Authority/State",
+      "specialtyBoard": "Specialty Board Certification",
+      "uploadDocument": "Please upload a clear photo or scan of your medical license or board certification.",
+      "documentUrl": "Enter document URL",
+      "process": "Verification Process:",
+      "step1": "Submit your credentials",
+      "step2": "Upload verification documents",
+      "step3": "Review by our medical team",
+      "step4": "Receive verified badge"
+    }
+  },
+  "onboarding": {
+    "completeProfile": "Complete Your Profile",
+    "tellAboutYourself": "Tell us about yourself to get started",
+    "iAmA": "I am a...",
+    "doctor": "Doctor",
+    "individualMedical": "Individual medical professional",
+    "organization": "Organization",
+    "hospitalClinic": "Hospital, clinic, or company",
+    "fullName": "Full Name",
+    "organizationName": "Organization Name",
+    "username": "Username",
+    "specialty": "Specialty",
+    "organizationType": "Organization Type",
+    "selectType": "Select type...",
+    "hospital": "Hospital",
+    "clinic": "Clinic",
+    "medicalCompany": "Medical Company",
+    "registrationNumber": "Registration Number",
+    "creatingProfile": "Creating Profile...",
+    "completeSetup": "Complete Setup"
+  },
+  "chat": {
+    "title": "ChatZone",
+    "subtitle": "Secure messaging for medical professionals",
+    "newChat": "New Chat",
+    "searchDoctors": "Search doctors...",
+    "noMessages": "No messages yet",
+    "startConversation": "Start the conversation",
+    "typeMessage": "Type your message...",
+    "noFriends": "No friends found",
+    "addContact": "Add new contact",
+    "online": "Online",
+    "lastSeen": "Last seen",
+    "suggested": "Suggested",
+    "friends": "Friends",
+    "searchByNameOrSpecialty": "Search by name or specialty...",
+    "startChat": "Start Chat",
+    "medicalProfessional": "Medical Professional",
+    "selectFriendPrompt": "Select a friend to start a conversation or create a new chat.",
+    "inboxAssistant": "Inbox Assistant",
+    "externalMessages": "External Messages",
+    "inboxAssistantTitle": "Unified Communication Hub",
+    "inboxAssistantDescription": "This is your smart inbox that relays messages from external platforms like WhatsApp, Telegram, and WeChat.",
+    "selectMessagePrompt": "Select a message from the left to view and respond.",
+    "replyTo": "Reply to",
+    "typeReply": "Type your reply...",
+    "askKimsoulHelp": "Ask Kimsoul to help reply",
+    "kimsoulSuggestion": "Kimsoul's Suggested Reply",
+    "useReply": "Use Reply",
+    "discardReply": "Discard",
+    "generating": "Generating..."
+  },
+  "zoneGBT": {
+    "title": "ZoneGBT",
+    "subtitle": "Your medical AI assistant",
+    "newConversation": "New Conversation",
+    "searchConversations": "Search conversations",
+    "recent": "Recent",
+    "askQuestion": "Ask ZoneGBT a question...",
+    "thinking": "Thinking...",
+    "disclaimer": "ZoneGBT may produce inaccurate information. Always verify important medical information.",
+    "suggestions": {
+      "summarize": "Summarize this article",
+      "writePost": "Help me write a post",
+      "explainECG": "Explain ECG result"
+    }
+  },
+  "zoneTube": {
+    "title": "ZoneTube",
+    "subtitle": "Medical videos and learning resources",
+    "uploadVideo": "Upload Video",
+    "quickUpload": "Quick Upload",
+    "allVideos": "All Videos",
+    "trending": "Trending",
+    "newest": "Newest",
+    "premium": "Premium",
+    "featured": "Featured Video",
+    "trendingWeek": "Trending This Week",
+    "viewAll": "View all",
+    "noVideos": "No videos found",
+    "tryAdjusting": "Try adjusting your search filters",
+    "clearFilters": "Clear Filters",
+    "joinToday": "Join Dr.Zone AI Today",
+    "joinSubtitle": "Sign up to access premium content, save your favorite videos, and share your medical knowledge with the community."
+  },
+  "zoneCast": {
+    "title": "ZoneCast",
+    "subtitle": "Medical podcasts from expert doctors",
+    "uploadPodcast": "Upload Podcast",
+    "quickUpload": "Quick Upload",
+    "featuredEpisode": "Featured Episode",
+    "allEpisodes": "All Episodes",
+    "noPodcasts": "No podcasts found",
+    "listenNow": "Listen Now",
+    "joinDrZone": "Join Dr.Zone AI",
+    "accessContent": "Sign up to access more content and share your medical knowledge with the community."
+  },
+  "zonematch": {
+    "title": "ZoneMatch",
+    "subtitle": "Connect with doctors who share your interests",
+    "dreamBottle": {
+      "title": "Dream Bottle",
+      "description": "Write your dream and throw it to the sky... it might meet someone else's dream",
+      "startNow": "Start Now"
+    },
+    "personalityTest": {
+      "title": "Medical Compatibility Test",
+      "description": "Discover your medical personality type and connect with similar people",
+      "startNow": "Start Now"
+    },
+    "caseOfTheDay": {
+      "title": "Case of the Day",
+      "description": "Test your diagnostic skills with a new medical case every day",
+      "startNow": "Start Now",
+      "patientInfo": "Patient Information",
+      "clinicalFindings": "Clinical Findings",
+      "labResults": "Lab Results",
+      "imaging": "Imaging",
+      "whatIsYourDiagnosis": "What is your diagnosis?",
+      "submitAnswer": "Submit Answer",
+      "correctAnswer": "Correct Answer",
+      "explanation": "Explanation",
+      "references": "References",
+      "discussion": "Discussion",
+      "writeComment": "Write a comment...",
+      "yourStats": "Your Stats",
+      "correctAnswers": "Correct Answers",
+      "participation": "Participation",
+      "streak": "Streak",
+      "nextCase": "Next Case",
+      "casesCompleted": "Cases Completed",
+      "accuracy": "Accuracy"
+    },
+    "doctorOrMyth": {
+      "title": "Doctor or Myth",
+      "description": "Test your medical knowledge and ability to distinguish facts from myths",
+      "startNow": "Start Now",
+      "fact": "Fact",
+      "myth": "Myth",
+      "isThisFactOrMyth": "Is this a medical fact or myth?",
+      "correctAnswer": "Correct Answer",
+      "explanation": "Explanation",
+      "source": "Source",
+      "yourScore": "Your Score",
+      "correct": "Correct",
+      "incorrect": "Incorrect",
+      "streak": "Streak",
+      "leaderboard": "Leaderboard",
+      "nextStatement": "Next Statement",
+      "dailyChallenge": "Daily Challenge",
+      "timeRemaining": "Time Remaining"
+    },
+    "patientSpeaks": {
+      "title": "Patient Speaks",
+      "description": "Listen to patient complaints and diagnose them based on their description",
+      "startNow": "Start Now",
+      "patientMessage": "Patient Message",
+      "whatIsYourDiagnosis": "What is your diagnosis?",
+      "submitDiagnosis": "Submit Diagnosis",
+      "correctDiagnosis": "Correct Diagnosis",
+      "explanation": "Explanation",
+      "clinicalPearls": "Clinical Pearls",
+      "nextPatient": "Next Patient",
+      "listenToAudio": "Listen to Audio Recording",
+      "typeYourDiagnosis": "Type your diagnosis...",
+      "patientHistory": "Patient History",
+      "differentialDiagnosis": "Differential Diagnosis"
+    },
+    "spotTheMistake": {
+      "title": "Spot the Mistake",
+      "description": "Identify errors in medical images and clinical forms",
+      "startNow": "Start Now",
+      "clickOnMistake": "Click on the location of the mistake in the image",
+      "zoomIn": "Zoom In",
+      "zoomOut": "Zoom Out",
+      "needHint": "Need a hint?",
+      "showHint": "Show Hint",
+      "submitAnswer": "Submit Answer",
+      "correctSpot": "Correct Spot",
+      "mistakeExplanation": "Mistake Explanation",
+      "clinicalImplications": "Clinical Implications",
+      "nextChallenge": "Next Challenge",
+      "imageType": "Image Type",
+      "difficultyLevel": "Difficulty Level"
+    },
+    "findYourSpecialty": {
+      "title": "Find Your Medical Specialty",
+      "description": "Let your answers guide you to the right path in medicine",
+      "startNow": "Start Now",
+      "question": "Question",
+      "of": "of",
+      "analyzing": "Analyzing your answers...",
+      "determiningSpecialty": "We're determining the medical specialty best suited to your personality and strengths.",
+      "yourStrengths": "Your Strengths",
+      "potentialChallenges": "Potential Challenges",
+      "importantNote": "Important Note",
+      "disclaimerText": "This assessment is an exploratory guide only and does not replace career counseling. Specialty decisions should be based on a combination of factors including clinical experience, mentorship, and personal interests.",
+      "retakeQuiz": "Retake Quiz",
+      "backToZoneMatch": "Back to ZoneMatch"
+    }
+  },
+  "zomZone": {
+    "subtitle": "Professional video meetings for medical consultations"
+  },
+  "researchZone": {
+    "subtitle": "Access the latest medical research and literature"
+  },
+  "jobsZone": {
+    "subtitle": "Find and post medical career opportunities"
+  },
+  "medicalTools": {
+    "subtitle": "Essential calculators and reference tools"
+  },
+  "conferenceZone": {
+    "subtitle": "Medical conferences and events"
+  }
+}

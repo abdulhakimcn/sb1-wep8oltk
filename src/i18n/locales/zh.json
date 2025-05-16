@@ -1,0 +1,403 @@
+{
+  "common": {
+    "loading": "加载中...",
+    "error": "发生错误",
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "edit": "编辑",
+    "share": "分享",
+    "search": "搜索",
+    "filter": "筛选",
+    "viewAll": "查看全部",
+    "comingSoon": "即将推出",
+    "upload": "上传",
+    "settings": "设置",
+    "post": "发布",
+    "posting": "发布中...",
+    "submit": "提交",
+    "submitting": "提交中...",
+    "back": "返回",
+    "next": "下一步",
+    "finish": "完成",
+    "continue": "继续",
+    "learnMore": "了解更多",
+    "readMore": "阅读更多",
+    "joinNow": "立即加入",
+    "getStarted": "开始使用",
+    "seeAll": "查看全部",
+    "showMore": "显示更多",
+    "showLess": "显示更少",
+    "followers": "关注者",
+    "following": "正在关注",
+    "writeComment": "写评论...",
+    "company": "公司",
+    "about": "关于",
+    "privacy": "隐私",
+    "terms": "条款",
+    "contact": "联系我们",
+    "allRightsReserved": "保留所有权利。",
+    "madeWith": "用",
+    "forMedicalCommunity": "为医疗社区制作",
+    "copy": "复制",
+    "copied": "已复制!",
+    "privacyPolicy": "隐私政策",
+    "termsOfService": "服务条款和医疗数据隐私"
+  },
+  "auth": {
+    "signIn": "登录",
+    "signUp": "注册",
+    "signOut": "退出",
+    "email": "邮箱",
+    "password": "密码",
+    "forgotPassword": "忘记密码？",
+    "orContinueWith": "或继续使用",
+    "createAccount": "创建账户",
+    "alreadyHaveAccount": "已有账户？",
+    "dontHaveAccount": "没有账户？",
+    "resetPassword": "重置密码",
+    "verifyEmail": "验证邮箱",
+    "resendVerification": "重新发送验证",
+    "welcomeToMyDrZone": "欢迎来到医生专区",
+    "joinExclusiveNetwork": "加入专属医疗专业人士网络",
+    "developerMode": "开发者模式",
+    "devModeWarning": "您正在使用开发者模式。这仅用于测试，不适用于生产环境。",
+    "devUsername": "开发者用户名",
+    "devLogin": "开发者登录",
+    "backToRegularLogin": "返回常规登录"
+  },
+  "nav": {
+    "home": "首页",
+    "myZone": "我的专区",
+    "zoneTube": "医疗视频",
+    "zoneCast": "医疗播客",
+    "chatZone": "聊天专区",
+    "zoneGBT": "AI助手",
+    "zomZone": "视频会议",
+    "researchZone": "研究专区",
+    "jobsZone": "工作机会",
+    "medicalTools": "医疗工具",
+    "zoneMatch": "医生匹配",
+    "conferenceZone": "会议专区",
+    "profile": "个人资料",
+    "zones": "专区"
+  },
+  "home": {
+    "hero": {
+      "title": "医疗专业人士的完整数字生态系统",
+      "subtitle": "通过由医生设计、专为医生打造的专属平台，实现连接、协作与成长。",
+      "cta": {
+        "join": "立即加入",
+        "tour": "平台导览"
+      }
+    },
+    "trusted": {
+      "title": "受到领先医疗机构的信任"
+    },
+    "zones": {
+      "description": "每个专区都专为提升您医疗实践和职业生涯的不同方面而设计。"
+    },
+    "features": {
+      "title": "专为医疗专业人士打造",
+      "subtitle": "体验一个理解医疗服务提供者独特需求的平台。",
+      "security": {
+        "title": "医疗级安全",
+        "description": "专为医疗专业人士设计的行业领先加密和隐私控制。"
+      },
+      "verified": {
+        "title": "已验证社区",
+        "description": "在可信环境中与真实、已验证的医疗专业人士建立联系。"
+      },
+      "ai": {
+        "title": "AI驱动工具",
+        "description": "适应您专业领域并帮助您更高效工作的智能功能。"
+      }
+    },
+    "cta": {
+      "title": "加入医疗革命",
+      "subtitle": "Dr.Zone不仅仅是一个平台...它是一场完整的医学知识革命。立即加入，成为智能医生一代的一部分。",
+      "createAccount": "创建您的账户",
+      "existingUser": "已有账户？登录"
+    }
+  },
+  "myZone": {
+    "title": "我的专区",
+    "subtitle": "您安全分享帖子并与同事交流医学专业知识的空间",
+    "postPrompt": "医生，您在想什么？",
+    "sharePrompt": "与医疗社区分享一些内容...",
+    "welcomeMessage": "欢迎！与社区分享您的医学见解",
+    "filters": {
+      "title": "筛选",
+      "specialty": "专业",
+      "language": "语言",
+      "all": "全部"
+    },
+    "about": "关于",
+    "credentials": "资质",
+    "publications": "出版物",
+    "activity": "活动",
+    "stats": {
+      "title": "活动统计",
+      "posts": "您的帖子",
+      "comments": "评论",
+      "engagement": "参与度"
+    },
+    "pinnedPosts": "置顶帖子",
+    "communityPosts": "社区帖子",
+    "loadMore": "加载更多帖子",
+    "welcome": {
+      "title": "欢迎来到我的专区！",
+      "description": "开始与您的社区分享您的医学见解。",
+      "createPost": "创建您的第一篇帖子"
+    }
+  },
+  "post": {
+    "create": "创建帖子",
+    "photo": "照片",
+    "document": "文档",
+    "location": "位置",
+    "privacy": {
+      "public": "公开",
+      "users": "Dr.Zone用户",
+      "connections": "关系",
+      "publicDesc": "任何人都可以看到此帖子",
+      "usersDesc": "只有Dr.Zone用户可以看到此帖子",
+      "connectionsDesc": "只有您的关系可以看到此帖子"
+    },
+    "selectSpecialty": "选择专业",
+    "addToPost": "添加到您的帖子",
+    "specialties": {
+      "cardiology": "心脏病学",
+      "neurology": "神经学",
+      "pediatrics": "儿科",
+      "oncology": "肿瘤学",
+      "surgery": "外科"
+    }
+  },
+  "profile": {
+    "about": "关于",
+    "credentials": "资质",
+    "publications": "出版物",
+    "activity": "活动",
+    "getVerified": "获取验证",
+    "editProfile": "编辑资料",
+    "settings": "设置",
+    "medicalProfessional": "医疗专业人士",
+    "noBioProvided": "尚未提供简介。告诉他人您的医学背景、兴趣和专长。",
+    "verification": {
+      "title": "医疗专业人士验证",
+      "description": "要验证您的医疗专业人士身份，请提供您的凭证并上传支持文档。",
+      "licenseNumber": "医疗执照号码",
+      "issuingAuthority": "发证机构/州",
+      "specialtyBoard": "专科委员会认证",
+      "uploadDocument": "请上传您的医疗执照或委员会认证的清晰照片或扫描件。",
+      "documentUrl": "输入文档URL",
+      "process": "验证流程：",
+      "step1": "提交您的凭证",
+      "step2": "上传验证文档",
+      "step3": "由我们的医疗团队审核",
+      "step4": "获得验证徽章"
+    }
+  },
+  "onboarding": {
+    "completeProfile": "完成您的个人资料",
+    "tellAboutYourself": "告诉我们关于您自己的信息以开始使用",
+    "iAmA": "我是...",
+    "doctor": "医生",
+    "individualMedical": "个人医疗专业人士",
+    "organization": "组织",
+    "hospitalClinic": "医院、诊所或公司",
+    "fullName": "全名",
+    "organizationName": "组织名称",
+    "username": "用户名",
+    "specialty": "专业",
+    "organizationType": "组织类型",
+    "selectType": "选择类型...",
+    "hospital": "医院",
+    "clinic": "诊所",
+    "medicalCompany": "医疗公司",
+    "registrationNumber": "注册号码",
+    "creatingProfile": "创建个人资料中...",
+    "completeSetup": "完成设置"
+  },
+  "chat": {
+    "title": "聊天专区",
+    "subtitle": "医疗专业人士的安全消息传递",
+    "newChat": "新聊天",
+    "searchDoctors": "搜索医生...",
+    "noMessages": "暂无消息",
+    "startConversation": "开始对话",
+    "typeMessage": "输入您的消息...",
+    "noFriends": "未找到好友",
+    "addContact": "添加新联系人",
+    "online": "在线",
+    "lastSeen": "最后在线",
+    "suggested": "建议",
+    "friends": "好友",
+    "searchByNameOrSpecialty": "按姓名或专业搜索...",
+    "startChat": "开始聊天",
+    "medicalProfessional": "医疗专业人士",
+    "selectFriendPrompt": "选择一位好友开始对话或创建新聊天。",
+    "inboxAssistant": "收件箱助手",
+    "externalMessages": "外部消息",
+    "inboxAssistantTitle": "统一通信中心",
+    "inboxAssistantDescription": "这是您的智能收件箱，可以转发来自WhatsApp、Telegram和WeChat等外部平台的消息。",
+    "selectMessagePrompt": "从左侧选择一条消息进行查看和回复。",
+    "replyTo": "回复",
+    "typeReply": "输入您的回复...",
+    "askKimsoulHelp": "请Kimsoul帮助回复",
+    "kimsoulSuggestion": "Kimsoul的建议回复",
+    "useReply": "使用回复",
+    "discardReply": "放弃",
+    "generating": "生成中..."
+  },
+  "zoneGBT": {
+    "title": "AI助手",
+    "subtitle": "您的医疗AI助手",
+    "newConversation": "新对话",
+    "searchConversations": "搜索对话",
+    "recent": "最近",
+    "askQuestion": "向AI助手提问...",
+    "thinking": "思考中...",
+    "disclaimer": "AI助手可能产生不准确的信息。请始终验证重要的医疗信息。",
+    "suggestions": {
+      "summarize": "总结这篇文章",
+      "writePost": "帮我写一篇帖子",
+      "explainECG": "解释心电图结果"
+    }
+  },
+  "zoneTube": {
+    "title": "医疗视频",
+    "subtitle": "医疗视频和学习资源",
+    "uploadVideo": "上传视频",
+    "quickUpload": "快速上传",
+    "allVideos": "所有视频",
+    "trending": "热门",
+    "newest": "最新",
+    "premium": "高级",
+    "featured": "精选视频",
+    "trendingWeek": "本周热门",
+    "viewAll": "查看全部",
+    "noVideos": "未找到视频",
+    "tryAdjusting": "尝试调整搜索筛选条件",
+    "clearFilters": "清除筛选",
+    "joinToday": "今天加入Dr.Zone",
+    "joinSubtitle": "注册以访问高级内容，保存您喜爱的视频，并与社区分享您的医学知识。"
+  },
+  "zoneCast": {
+    "title": "医疗播客",
+    "subtitle": "来自专家医生的医疗播客",
+    "uploadPodcast": "上传播客",
+    "quickUpload": "快速上传",
+    "featuredEpisode": "精选剧集",
+    "allEpisodes": "所有剧集",
+    "noPodcasts": "未找到播客",
+    "listenNow": "立即收听",
+    "joinDrZone": "加入Dr.Zone",
+    "accessContent": "注册以访问更多内容并与社区分享您的医学知识。"
+  },
+  "zonematch": {
+    "title": "医生匹配",
+    "subtitle": "与志同道合的医生建立联系",
+    "dreamBottle": {
+      "title": "梦想之瓶",
+      "description": "写下你的梦想并将其抛向天空...也许它会与他人的梦想相遇",
+      "startNow": "立即开始"
+    },
+    "personalityTest": {
+      "title": "医疗匹配测试",
+      "description": "发现您的医疗性格类型并与相似的人建立联系",
+      "startNow": "立即开始"
+    },
+    "caseOfTheDay": {
+      "title": "每日病例",
+      "description": "通过每天的新医疗病例测试您的诊断技能",
+      "startNow": "立即开始",
+      "patientInfo": "患者信息",
+      "clinicalFindings": "临床发现",
+      "labResults": "实验室结果",
+      "imaging": "影像学",
+      "whatIsYourDiagnosis": "您的诊断是什么？",
+      "submitAnswer": "提交答案",
+      "correctAnswer": "正确答案",
+      "explanation": "解释",
+      "references": "参考文献",
+      "discussion": "讨论",
+      "writeComment": "写评论...",
+      "yourStats": "您的统计",
+      "correctAnswers": "正确答案",
+      "participation": "参与度",
+      "streak": "连续",
+      "nextCase": "下一个病例",
+      "casesCompleted": "已完成病例",
+      "accuracy": "准确率"
+    },
+    "doctorOrMyth": {
+      "title": "医学真相还是谣言",
+      "description": "测试您的医学知识和区分事实与谣言的能力",
+      "startNow": "立即开始",
+      "fact": "事实",
+      "myth": "谣言",
+      "isThisFactOrMyth": "这是医学事实还是谣言？",
+      "correctAnswer": "正确答案",
+      "explanation": "解释",
+      "source": "来源",
+      "yourScore": "您的得分",
+      "correct": "正确",
+      "incorrect": "错误",
+      "streak": "连续",
+      "leaderboard": "排行榜",
+      "nextStatement": "下一个陈述",
+      "dailyChallenge": "每日挑战",
+      "timeRemaining": "剩余时间"
+    },
+    "patientSpeaks": {
+      "title": "患者诉说",
+      "description": "听取患者的主诉并根据他们的描述进行诊断",
+      "startNow": "立即开始",
+      "patientMessage": "患者信息",
+      "whatIsYourDiagnosis": "您的诊断是什么？",
+      "submitDiagnosis": "提交诊断",
+      "correctDiagnosis": "正确诊断",
+      "explanation": "解释",
+      "clinicalPearls": "临床要点",
+      "nextPatient": "下一位患者",
+      "listenToAudio": "收听音频记录",
+      "typeYourDiagnosis": "输入您的诊断...",
+      "patientHistory": "患者病史",
+      "differentialDiagnosis": "鉴别诊断"
+    },
+    "spotTheMistake": {
+      "title": "发现错误",
+      "description": "识别医学图像和临床表格中的错误",
+      "startNow": "立即开始",
+      "clickOnMistake": "点击图像中错误的位置",
+      "zoomIn": "放大",
+      "zoomOut": "缩小",
+      "needHint": "需要提示？",
+      "showHint": "显示提示",
+      "submitAnswer": "提交答案",
+      "correctSpot": "正确位置",
+      "mistakeExplanation": "错误解释",
+      "clinicalImplications": "临床意义",
+      "nextChallenge": "下一个挑战",
+      "imageType": "图像类型",
+      "difficultyLevel": "难度级别"
+    }
+  },
+  "zomZone": {
+    "subtitle": "用于医疗咨询的专业视频会议"
+  },
+  "researchZone": {
+    "subtitle": "获取最新医学研究和文献"
+  },
+  "jobsZone": {
+    "subtitle": "寻找和发布医疗职业机会"
+  },
+  "medicalTools": {
+    "subtitle": "基本计算器和参考工具"
+  },
+  "conferenceZone": {
+    "subtitle": "医疗会议和活动"
+  }
+}

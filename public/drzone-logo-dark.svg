@@ -1,0 +1,24 @@
+<svg width="800" height="250" viewBox="0 0 800 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Blue square with rounded corners -->
+  <rect x="100" y="25" width="200" height="200" rx="40" fill="#29ABE2"/>
+  
+  <!-- White stethoscope -->
+  <path d="M150 75 C150 75, 170 75, 190 75 C210 75, 230 95, 230 115 C230 135, 210 155, 190 155 C170 155, 150 135, 150 115" stroke="white" stroke-width="20" stroke-linecap="round" fill="none"/>
+  <circle cx="230" cy="155" r="15" fill="white"/>
+  
+  <!-- Dr.Zone AI text -->
+  <path d="M350 75 H380 Q410 75, 410 105 V145 Q410 175, 380 175 H350 V75 Z" fill="white"/>
+  <path d="M350 75 H380 Q410 75, 410 105 V145 Q410 175, 380 175 H350 V75 Z" stroke="white" stroke-width="2"/>
+  <path d="M350 95 H370 Q390 95, 390 115 V135 Q390 155, 370 155 H350 V95 Z" fill="#29ABE2"/>
+  
+  <path d="M430 175 V75 H440 L490 135 V75 H510 V175 H500 L450 115 V175 H430 Z" fill="white"/>
+  <path d="M530 175 V155 H540 V175 H530 Z" fill="white"/>
+  <path d="M530 145 V75 H540 V145 H530 Z" fill="white"/>
+  <path d="M570 175 V75 H620 Q640 75, 650 85 Q660 95, 660 115 Q660 135, 650 145 Q640 155, 620 155 H590 V175 H570 Z M590 135 H620 Q625 135, 630 130 Q635 125, 635 115 Q635 105, 630 100 Q625 95, 620 95 H590 V135 Z" fill="white"/>
+  <path d="M680 175 V75 H730 Q750 75, 760 85 Q770 95, 770 115 Q770 135, 760 145 Q750 155, 730 155 H700 V175 H680 Z M700 135 H730 Q735 135, 740 130 Q745 125, 745 115 Q745 105, 740 100 Q735 95, 730 95 H700 V135 Z" fill="white"/>
+  <path d="M350 200 H370 L400 250 H380 L350 200 Z" fill="white"/>
+  <path d="M410 200 H430 L400 250 H380 L410 200 Z" fill="white"/>
+  
+  <!-- Powered by HakeemZone text -->
+  <text x="350" y="225" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="white">Powered by HakeemZone™</text>
+</svg>

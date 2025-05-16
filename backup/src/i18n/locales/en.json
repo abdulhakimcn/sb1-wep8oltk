@@ -1,0 +1,51 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "share": "Share",
+    "search": "Search",
+    "filter": "Filter",
+    "viewAll": "View All",
+    "comingSoon": "Coming Soon"
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "orContinueWith": "Or continue with"
+  },
+  "nav": {
+    "home": "Home",
+    "myZone": "MyZone",
+    "zoneTube": "ZoneTube",
+    "chatZone": "ChatZone",
+    "zoneGBT": "ZoneGBT",
+    "zomZone": "ZomZone",
+    "researchZone": "ResearchZone",
+    "jobsZone": "JobsZone",
+    "medicalTools": "Medical Tools",
+    "zoneMatch": "ZoneMatch",
+    "conferenceZone": "Conference Zone",
+    "profile": "Profile"
+  },
+  "home": {
+    "hero": {
+      "title": "The Complete Digital Ecosystem for Medical Professionals",
+      "subtitle": "Connect, collaborate, and grow with an exclusive platform designed by doctors, for doctors.",
+      "cta": {
+        "join": "Join Now",
+        "tour": "Take a Tour"
+      }
+    },
+    "trusted": {
+      "title": "Trusted by leading medical institutions"
+    }
+  }
+}

@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #0073b6;
+  --secondary-color: #34a853;
+  --accent-color: #ff6900;
+}
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* RTL Support */
+  [dir="rtl"] {
+    text-align: right;
+  }
+
+  [dir="rtl"] .space-x-1 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 1;
+  }
+
+  [dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 1;
+  }
+
+  [dir="rtl"] .space-x-3 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 1;
+  }
+
+  [dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold;
+  }
+
+  h1 {
+    @apply text-4xl leading-tight md:text-5xl;
+  }
+
+  h2 {
+    @apply text-3xl leading-tight md:text-4xl;
+  }
+
+  h3 {
+    @apply text-2xl leading-snug md:text-3xl;
+  }
+
+  h4 {
+    @apply text-xl leading-snug md:text-2xl;
+  }
+
+  p {
+    @apply leading-relaxed;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply bg-primary-500 text-white hover:bg-primary-600;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary-500 text-white hover:bg-secondary-600;
+  }
+
+  .btn-accent {
+    @apply bg-accent-500 text-white hover:bg-accent-600;
+  }
+
+  .btn-outline {
+    @apply border border-gray-300 bg-transparent hover:bg-gray-100;
+  }
+
+  .card {
+    @apply rounded-lg bg-white p-6 shadow-md;
+  }
+
+  .container-custom {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Zone-specific styles */
+.zone-container {
+  @apply animate-fade-in rounded-xl p-6 shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl;
+}
+
+.myzone-container {
+  @apply bg-gradient-to-br from-primary-50 to-primary-100 shadow-primary-100/50;
+}
+
+.zonetube-container {
+  @apply bg-gradient-to-br from-red-50 to-red-100 shadow-red-100/50;
+}
+
+.chatzone-container {
+  @apply bg-gradient-to-br from-green-50 to-green-100 shadow-green-100/50;
+}
+
+.zonegbt-container {
+  @apply bg-gradient-to-br from-purple-50 to-purple-100 shadow-purple-100/50;
+}
+
+.zomzone-container {
+  @apply bg-gradient-to-br from-blue-50 to-blue-100 shadow-blue-100/50;
+}
+
+.researchzone-container {
+  @apply bg-gradient-to-br from-yellow-50 to-yellow-100 shadow-yellow-100/50;
+}
+
+.jobszone-container {
+  @apply bg-gradient-to-br from-indigo-50 to-indigo-100 shadow-indigo-100/50;
+}
+
+.medicaltools-container {
+  @apply bg-gradient-to-br from-teal-50 to-teal-100 shadow-teal-100/50;
+}
+
+.zonematch-container {
+  @apply bg-gradient-to-br from-pink-50 to-pink-100 shadow-pink-100/50;
+}

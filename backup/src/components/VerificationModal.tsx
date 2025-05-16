@@ -1,0 +1,180 @@
+import React, { useState } from 'react';
+import { X, Upload, Check } from 'lucide-react';
+import { supabase } from '../lib/supabase';
+import { useAuth } from './AuthProvider';
+
+interface VerificationModalProps {
+  onClose: () => void;
+  onSuccess: () => void;
+}
+
+const VerificationModal: React.FC<VerificationModalProps> = ({ onClose, onSuccess }) => {
+  const { user } = useAuth();
+  const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    licenseNumber: '',
+    issuingAuthority: '',
+    specialtyBoard: '',
+    documentUrl: ''
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!user) return;
+    
+    setLoading(true);
+
+    try {
+      const { error } = await supabase
+        .from('verification_requests')
+        .insert([{
+          user_id: user.id,
+          license_number: formData.licenseNumber,
+          issuing_authority: formData.issuingAuthority,
+          specialty_board: formData.specialtyBoard,
+          document_url: formData.documentUrl,
+          status: 'pending'
+        }]);
+
+      if (error) throw error;
+      
+      onSuccess();
+    } catch (error) {
+      console.error('Error submitting verification:', error);
+      alert('Error submitting verification request. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="w-full max-w-md rounded-lg bg-white p-6">
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-xl font-semibold">Medical Professional Verification</h2>
+          <button
+            onClick={onClose}
+            className="rounded-full p-1 text-gray-500 hover:bg-gray-100"
+          >
+            <X size={20} />
+          </button>
+        </div>
+
+        {step === 1 ? (
+          <div>
+            <p className="mb-4 text-gray-600">
+              To verify your medical professional status, please provide your credentials and upload supporting documentation.
+            </p>
+            
+            <form onSubmit={(e) => { e.preventDefault(); setStep(2); }} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Medical License Number</label>
+                <input
+                  type="text"
+                  required
+                  value={formData.licenseNumber}
+                  onChange={(e) => setFormData({ ...formData, licenseNumber: e.target.value })}
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Issuing Authority/State</label>
+                <input
+                  type="text"
+                  required
+                  value={formData.issuingAuthority}
+                  onChange={(e) => setFormData({ ...formData, issuingAuthority: e.target.value })}
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Specialty Board Certification</label>
+                <input
+                  type="text"
+                  value={formData.specialtyBoard}
+                  onChange={(e) => setFormData({ ...formData, specialtyBoard: e.target.value })}
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none"
+                />
+              </div>
+
+              <div className="flex justify-end">
+                <button
+                  type="submit"
+                  className="rounded-md bg-primary-500 px-4 py-2 text-white hover:bg-primary-600"
+                >
+                  Next
+                </button>
+              </div>
+            </form>
+          </div>
+        ) : (
+          <div>
+            <p className="mb-4 text-gray-600">
+              Please upload a clear photo or scan of your medical license or board certification.
+            </p>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="rounded-lg border-2 border-dashed border-gray-300 p-6 text-center">
+                <input
+                  type="url"
+                  required
+                  value={formData.documentUrl}
+                  onChange={(e) => setFormData({ ...formData, documentUrl: e.target.value })}
+                  placeholder="Enter document URL"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none"
+                />
+                <p className="mt-2 text-sm text-gray-500">
+                  Enter the URL of your verification document
+                </p>
+              </div>
+
+              <div className="flex justify-between">
+                <button
+                  type="button"
+                  onClick={() => setStep(1)}
+                  className="rounded-md border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-50"
+                >
+                  Back
+                </button>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="rounded-md bg-primary-500 px-4 py-2 text-white hover:bg-primary-600 disabled:opacity-50"
+                >
+                  {loading ? 'Submitting...' : 'Submit for Verification'}
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+
+        <div className="mt-6 rounded-lg bg-gray-50 p-4">
+          <h3 className="mb-2 font-medium">Verification Process:</h3>
+          <ul className="space-y-2 text-sm text-gray-600">
+            <li className="flex items-center">
+              <Check size={16} className="mr-2 text-green-500" />
+              Submit your credentials
+            </li>
+            <li className="flex items-center">
+              <Check size={16} className="mr-2 text-green-500" />
+              Upload verification documents
+            </li>
+            <li className="flex items-center">
+              <Check size={16} className="mr-2 text-green-500" />
+              Review by our medical team
+            </li>
+            <li className="flex items-center">
+              <Check size={16} className="mr-2 text-green-500" />
+              Receive verified badge
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default VerificationModal;

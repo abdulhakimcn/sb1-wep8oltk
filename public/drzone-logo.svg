@@ -1,0 +1,27 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Blue square with rounded corners -->
+  <rect x="105" y="100" width="200" height="200" rx="40" ry="40" fill="url(#blue-gradient)" />
+  
+  <!-- Stethoscope -->
+  <path d="M205 140 C160 140, 160 200, 160 240 C160 260, 180 280, 205 280 C230 280, 250 260, 250 240 C250 200, 250 140, 205 140" stroke="white" stroke-width="15" fill="none" />
+  
+  <!-- Stethoscope earpiece -->
+  <circle cx="205" cy="140" r="15" fill="white" />
+  
+  <!-- Stethoscope chest piece -->
+  <circle cx="205" cy="280" r="20" fill="white" />
+  
+  <!-- Text "Dr.Zone AI" -->
+  <text x="330" y="200" font-family="Arial, sans-serif" font-size="100" font-weight="bold" fill="#002642">Dr.Zone AI</text>
+  
+  <!-- Text "Powered by HakeemZone™" -->
+  <text x="330" y="280" font-family="Arial, sans-serif" font-size="45" fill="#002642">Powered by HakeemZone™</text>
+  
+  <!-- Gradient definition -->
+  <defs>
+    <linearGradient id="blue-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#30cfd0" />
+      <stop offset="100%" style="stop-color:#0073b6" />
+    </linearGradient>
+  </defs>
+</svg>

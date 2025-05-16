@@ -1,0 +1,51 @@
+{
+  "common": {
+    "loading": "加载中...",
+    "error": "发生错误",
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "edit": "编辑",
+    "share": "分享",
+    "search": "搜索",
+    "filter": "筛选",
+    "viewAll": "查看全部",
+    "comingSoon": "即将推出"
+  },
+  "auth": {
+    "signIn": "登录",
+    "signUp": "注册",
+    "signOut": "退出",
+    "email": "邮箱",
+    "password": "密码",
+    "forgotPassword": "忘记密码？",
+    "orContinueWith": "或继续使用"
+  },
+  "nav": {
+    "home": "首页",
+    "myZone": "我的专区",
+    "zoneTube": "医疗视频",
+    "chatZone": "聊天专区",
+    "zoneGBT": "AI助手",
+    "zomZone": "视频会议",
+    "researchZone": "研究专区",
+    "jobsZone": "工作机会",
+    "medicalTools": "医疗工具",
+    "zoneMatch": "医生匹配",
+    "conferenceZone": "会议专区",
+    "profile": "个人资料"
+  },
+  "home": {
+    "hero": {
+      "title": "医疗专业人士的完整数字生态系统",
+      "subtitle": "通过由医生设计、专为医生打造的专属平台，实现连接、协作与成长。",
+      "cta": {
+        "join": "立即加入",
+        "tour": "平台导览"
+      }
+    },
+    "trusted": {
+      "title": "受到领先医疗机构的信任"
+    }
+  }
+}
