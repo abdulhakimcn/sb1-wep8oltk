@@ -39,6 +39,7 @@ import TestAccountPage from './pages/TestAccountPage';
 import AuthCallbackPage from './pages/AuthCallbackPage';
 import FindYourSpecialtyPage from './pages/FindYourSpecialtyPage';
 import HelpPage from './pages/HelpPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 
 console.log('App component loaded'); // Debug log
 
@@ -92,6 +93,7 @@ function App() {
           <Routes>
             <Route path="/auth" element={<Auth />} />
             <Route path="/auth/callback" element={<AuthCallbackPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/dev-login" element={<DevLoginPage />} />
             <Route path="/phone-login" element={<PhoneLoginPage />} />
             <Route path="/tour" element={<TourPage />} />
