@@ -3,7 +3,7 @@ import { Auth as SupabaseAuth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { supabase, isValidEmailDomain, ALLOWED_EMAIL_DOMAINS } from '../lib/supabase';
 import { useTranslation } from 'react-i18next';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import { Code, AlertCircle, Phone, Mail, AlertTriangle, Eye, EyeOff, Facebook, Github, Apple, Twitter, Linkedin, Watch as Wechat, Home, HelpCircle, Building, User } from 'lucide-react';
 import PhoneAuthForm from './PhoneAuthForm';
 import AuthForm from './AuthForm';
@@ -12,6 +12,7 @@ const Auth: React.FC = () => {
   console.log('Auth component rendering'); // Debug log
   const { t, i18n } = useTranslation();
   const [searchParams] = useSearchParams();
+  const location = useLocation();
   const [showDevOption, setShowDevOption] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [email, setEmail] = useState('');
@@ -25,6 +26,24 @@ const Auth: React.FC = () => {
   
   // Determine if we're showing Arabic content
   const isArabic = i18n.language === 'ar';
+
+  // Handle auth code in URL for email verification
+  useEffect(() => {
+    // Check for hash fragment or query parameters that might contain auth tokens
+    const hasAuthParams = location.hash || location.search.includes('access_token') || location.search.includes('code');
+    
+    if (hasAuthParams) {
+      console.log('Auth params detected in URL, exchanging code for session');
+      supabase.auth.exchangeCodeForSession(window.location.href).then(({ data, error }) => {
+        if (error) {
+          console.error('Error exchanging code for session:', error);
+          setErrorMessage(error.message);
+        } else if (data.session) {
+          console.log('Session established successfully');
+        }
+      });
+    }
+  }, [location]);
 
   // Listen for auth state changes to detect errors
   useEffect(() => {
