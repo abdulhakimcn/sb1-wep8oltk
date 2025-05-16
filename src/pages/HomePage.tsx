@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Users, Video, MessageCircle, BrainCircuit, Video as Video2, BookOpenText, Briefcase, Stethoscope, Heart, ArrowRight, ShieldCheck, BadgeCheck, Crown, Edit, Mic, Calendar } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { supabase } from '../lib/supabase';
 
 const HomePage: React.FC = () => {
   const { t, i18n } = useTranslation();
+  
+  // Handle verification code in URL
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+
+    if (code) {
+      console.log('Verification code detected in homepage, redirecting to auth callback');
+      window.location.href = `/auth/callback?code=${code}`;
+    }
+  }, []);
   
   const zones = [
     {
