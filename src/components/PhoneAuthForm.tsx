@@ -33,7 +33,7 @@ const PhoneAuthForm: React.FC<PhoneAuthFormProps> = ({ onBackToEmail, accountTyp
 
   // Determine verification method based on phone number
   useEffect(() => {
-    if (!manualMethodSelection) {
+    if (!manualMethodSelection && phoneNumber) {
       if (phoneNumber.startsWith('+86')) {
         // China numbers use SMS only
         setVerificationMethod('sms');
@@ -93,17 +93,54 @@ const PhoneAuthForm: React.FC<PhoneAuthFormProps> = ({ onBackToEmail, accountTyp
         await new Promise(resolve => setTimeout(resolve, 1000));
         setStep('verification');
       } else {
-        // For real phone numbers, use Supabase with the selected channel
-        const { error } = await supabase.auth.signInWithOtp({
-          phone: phoneNumber,
-          options: {
-            channel: verificationMethod === 'whatsapp' ? 'whatsapp' : 'sms'
+        // For real phone numbers, use the appropriate channel
+        if (verificationMethod === 'whatsapp') {
+          try {
+            // Call our WhatsApp verification edge function
+            const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL || 'https://ehvdxtyoctgkrgrabfij.supabase.co'}/functions/v1/whatsapp-verification`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVodmR4dHlvY3Rna3JncmFiZmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5MTkyNTgsImV4cCI6MjA2MjQ5NTI1OH0.2-dNzfXFO0AKpcWmRQM0svOBCQQ7SBTH5U7ABMYifq8'}`
+              },
+              body: JSON.stringify({
+                phone: phoneNumber,
+                action: 'send'
+              })
+            });
+            
+            const data = await response.json();
+            if (!data.success) throw new Error(data.error || 'Failed to send WhatsApp verification');
+            
+            setStep('verification');
+          } catch (whatsappError) {
+            console.error('WhatsApp verification failed, falling back to SMS:', whatsappError);
+            // Fall back to SMS if WhatsApp fails
+            const { error } = await supabase.auth.signInWithOtp({
+              phone: phoneNumber,
+              options: {
+                channel: 'sms'
+              }
+            });
+            
+            if (error) throw error;
+            
+            setVerificationMethod('sms');
+            setStep('verification');
           }
-        });
-        
-        if (error) throw error;
-        
-        setStep('verification');
+        } else {
+          // Use standard SMS OTP
+          const { error } = await supabase.auth.signInWithOtp({
+            phone: phoneNumber,
+            options: {
+              channel: 'sms'
+            }
+          });
+          
+          if (error) throw error;
+          
+          setStep('verification');
+        }
       }
     } catch (error) {
       console.error('Error sending verification code:', error);
@@ -165,26 +202,94 @@ const PhoneAuthForm: React.FC<PhoneAuthFormProps> = ({ onBackToEmail, accountTyp
             : "Invalid verification code");
         }
       } else {
-        // For real phone numbers, use Supabase with the selected channel
-        const { error } = await supabase.auth.verifyOtp({
-          phone: phoneNumber,
-          token: verificationCode,
-          type: verificationMethod === 'whatsapp' ? 'whatsapp' : 'sms',
-          options: {
-            data: {
-              account_type: accountType,
-              ...(accountType === 'organization' && {
-                org_name: orgName,
-                org_type: orgType,
-                org_country: orgCountry
+        // For real phone numbers, use the appropriate verification method
+        if (verificationMethod === 'whatsapp') {
+          try {
+            // Call our WhatsApp verification edge function
+            const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL || 'https://ehvdxtyoctgkrgrabfij.supabase.co'}/functions/v1/whatsapp-verification`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVodmR4dHlvY3Rna3JncmFiZmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5MTkyNTgsImV4cCI6MjA2MjQ5NTI1OH0.2-dNzfXFO0AKpcWmRQM0svOBCQQ7SBTH5U7ABMYifq8'}`
+              },
+              body: JSON.stringify({
+                phone: phoneNumber,
+                code: verificationCode,
+                action: 'verify',
+                userData: {
+                  account_type: accountType,
+                  ...(accountType === 'organization' && {
+                    org_name: orgName,
+                    org_type: orgType,
+                    org_country: orgCountry
+                  })
+                }
               })
+            });
+            
+            const data = await response.json();
+            if (!data.success) throw new Error(data.error || 'Failed to verify WhatsApp code');
+            
+            // Try to sign in the user
+            try {
+              await supabase.auth.signInWithPassword({
+                phone: phoneNumber,
+                password: verificationCode
+              });
+            } catch (signInError) {
+              // If sign in fails, try OTP sign in as fallback
+              await supabase.auth.signInWithOtp({
+                phone: phoneNumber,
+                options: { shouldCreateUser: true }
+              });
             }
+            
+            // The auth state change listener will handle the redirect
+          } catch (whatsappError) {
+            console.error('WhatsApp verification failed, falling back to SMS:', whatsappError);
+            // Fall back to standard SMS verification
+            const { error } = await supabase.auth.verifyOtp({
+              phone: phoneNumber,
+              token: verificationCode,
+              type: 'sms',
+              options: {
+                data: {
+                  account_type: accountType,
+                  ...(accountType === 'organization' && {
+                    org_name: orgName,
+                    org_type: orgType,
+                    org_country: orgCountry
+                  })
+                }
+              }
+            });
+            
+            if (error) throw error;
+            
+            // The auth state change listener will handle the redirect
           }
-        });
-        
-        if (error) throw error;
-        
-        // The auth state change listener will handle the redirect
+        } else {
+          // Use standard SMS OTP verification
+          const { error } = await supabase.auth.verifyOtp({
+            phone: phoneNumber,
+            token: verificationCode,
+            type: 'sms',
+            options: {
+              data: {
+                account_type: accountType,
+                ...(accountType === 'organization' && {
+                  org_name: orgName,
+                  org_type: orgType,
+                  org_country: orgCountry
+                })
+              }
+            }
+          });
+          
+          if (error) throw error;
+          
+          // The auth state change listener will handle the redirect
+        }
       }
     } catch (error) {
       console.error('Error verifying code:', error);
