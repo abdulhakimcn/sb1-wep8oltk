@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Send, ArrowLeft, CheckCircle, AlertCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, ArrowLeft, CheckCircle, AlertCircle, MessageSquare } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { supabase } from '../lib/supabase';
 
@@ -134,8 +134,8 @@ const ContactPage: React.FC = () => {
                         {isArabic ? 'البريد الإلكتروني' : 'Email'}
                       </h3>
                       <p className="mt-1 text-gray-600">
-                        <a href="mailto:dr.zone.ai@hakeemzone.com" className="text-primary-600 hover:text-primary-700">
-                          dr.zone.ai@hakeemzone.com
+                        <a href="mailto:dr.hakim@drzone.ai" className="text-primary-600 hover:text-primary-700">
+                          dr.hakim@drzone.ai
                         </a>
                       </p>
                       <p className="mt-1 text-gray-600">
@@ -163,6 +163,24 @@ const ContactPage: React.FC = () => {
                       </p>
                       <p className="mt-1 text-gray-600">
                         <a href="tel:+967774168043" className="text-primary-600 hover:text-primary-700">
+                          +967 774168043
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start" dir={isArabic ? 'rtl' : 'ltr'}>
+                    <div className="flex-shrink-0">
+                      <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary-100 text-primary-600">
+                        <MessageSquare size={24} />
+                      </div>
+                    </div>
+                    <div className={isArabic ? 'mr-4' : 'ml-4'}>
+                      <h3 className="text-lg font-medium text-gray-900">
+                        {isArabic ? 'واتساب' : 'WhatsApp'}
+                      </h3>
+                      <p className="mt-1 text-gray-600">
+                        <a href="https://wa.me/967774168043" className="text-primary-600 hover:text-primary-700" target="_blank" rel="noopener noreferrer">
                           +967 774168043
                         </a>
                       </p>
@@ -363,8 +381,8 @@ const ContactPage: React.FC = () => {
                 </h3>
                 <p className="text-gray-600">
                   {isArabic 
-                    ? 'نعم، يمكنك التسجيل باستخدام رقم هاتفك. ببساطة اختر خيار "رقم الهاتف" في صفحة تسجيل الدخول وسنرسل لك رمز تحقق.'
-                    : 'Yes, you can register using your phone number. Simply select the "Phone" option on the login page and we\'ll send you a verification code.'}
+                    ? 'نعم، يمكنك التسجيل باستخدام رقم هاتفك. ببساطة اختر خيار "رقم الهاتف" في صفحة تسجيل الدخول وسنرسل لك رمز تحقق عبر واتساب أو رسالة نصية.'
+                    : 'Yes, you can register using your phone number. Simply select the "Phone" option on the login page and we\'ll send you a verification code via WhatsApp or SMS.'}
                 </p>
               </div>
               
