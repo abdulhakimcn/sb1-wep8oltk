@@ -17,7 +17,7 @@ const PhoneAuthForm: React.FC<PhoneAuthFormProps> = ({ onBackToEmail, accountTyp
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showVerificationCode, setShowVerificationCode] = useState(false);
-  const [verificationMethod, setVerificationMethod] = useState<'sms' | 'whatsapp'>('sms');
+  const [verificationMethod, setVerificationMethod] = useState<'sms' | 'whatsapp'>('whatsapp');
   const [manualMethodSelection, setManualMethodSelection] = useState(false);
   
   // Organization-specific fields
@@ -49,8 +49,8 @@ const PhoneAuthForm: React.FC<PhoneAuthFormProps> = ({ onBackToEmail, accountTyp
         // MENA region numbers prefer WhatsApp
         setVerificationMethod('whatsapp');
       } else {
-        // Default to SMS for other regions
-        setVerificationMethod('sms');
+        // Default to WhatsApp for other regions (changed from SMS to prioritize WhatsApp)
+        setVerificationMethod('whatsapp');
       }
     }
   }, [phoneNumber, manualMethodSelection]);
@@ -244,23 +244,23 @@ const PhoneAuthForm: React.FC<PhoneAuthFormProps> = ({ onBackToEmail, accountTyp
                   <input
                     type="radio"
                     name="verificationMethod"
-                    value="sms"
-                    checked={verificationMethod === 'sms'}
-                    onChange={() => setVerificationMethod('sms')}
-                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300"
-                  />
-                  <span className="ml-2 text-sm text-gray-700">SMS</span>
-                </label>
-                <label className="inline-flex items-center">
-                  <input
-                    type="radio"
-                    name="verificationMethod"
                     value="whatsapp"
                     checked={verificationMethod === 'whatsapp'}
                     onChange={() => setVerificationMethod('whatsapp')}
                     className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300"
                   />
                   <span className="ml-2 text-sm text-gray-700">WhatsApp</span>
+                </label>
+                <label className="inline-flex items-center">
+                  <input
+                    type="radio"
+                    name="verificationMethod"
+                    value="sms"
+                    checked={verificationMethod === 'sms'}
+                    onChange={() => setVerificationMethod('sms')}
+                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300"
+                  />
+                  <span className="ml-2 text-sm text-gray-700">SMS</span>
                 </label>
               </div>
             ) : (
