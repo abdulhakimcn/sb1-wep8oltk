@@ -70,9 +70,9 @@ Deno.serve(async (req) => {
                 .insert({
                   user_id: newUser.user.id,
                   username: `user_${phone.replace(/\+/g, '')}`,
-                  full_name: `Test User (${phone})`,
+                  full_name: userData?.full_name || `Test User (${phone})`,
                   type: userData?.account_type || 'doctor',
-                  specialty: 'General Practice',
+                  specialty: userData?.specialty || 'General Practice',
                   is_public: true
                 });
                 
@@ -163,7 +163,7 @@ Deno.serve(async (req) => {
       } else {
         // For real phones, use the appropriate channel
         if (channel === 'whatsapp') {
-          // In a real implementation, this would call a WhatsApp API
+          // In a real implementation, this would call a WhatsApp API service
           // For now, we'll simulate success
           console.log(`Simulating WhatsApp verification code sent to ${phone}`);
           
