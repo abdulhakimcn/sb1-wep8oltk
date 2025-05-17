@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { Phone, ArrowRight, AlertCircle, Eye, EyeOff, MessageSquare } from 'lucide-react';
@@ -15,7 +15,7 @@ const PhoneLoginPage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showVerificationCode, setShowVerificationCode] = useState(false);
-  const [verificationMethod, setVerificationMethod] = useState<'sms' | 'whatsapp'>('sms');
+  const [verificationMethod, setVerificationMethod] = useState<'sms' | 'whatsapp'>('whatsapp');
   const [manualMethodSelection, setManualMethodSelection] = useState(false);
 
   // Test phone numbers
@@ -25,7 +25,7 @@ const PhoneLoginPage: React.FC = () => {
   };
 
   // Determine verification method based on phone number
-  React.useEffect(() => {
+  useEffect(() => {
     if (!manualMethodSelection) {
       if (phoneNumber.startsWith('+86')) {
         // China numbers use SMS only
@@ -42,8 +42,8 @@ const PhoneLoginPage: React.FC = () => {
         // MENA region numbers prefer WhatsApp
         setVerificationMethod('whatsapp');
       } else {
-        // Default to SMS for other regions
-        setVerificationMethod('sms');
+        // Default to WhatsApp for other regions (changed from SMS to prioritize WhatsApp)
+        setVerificationMethod('whatsapp');
       }
     }
   }, [phoneNumber, manualMethodSelection]);
@@ -153,12 +153,6 @@ const PhoneLoginPage: React.FC = () => {
     }
   };
 
-  // Pre-configured test accounts
-  const testAccounts = [
-    { phone: '+967774168043', label: 'Yemen' },
-    { phone: '+8613138607996', label: 'China' }
-  ];
-
   return (
     <>
       <Helmet>
@@ -235,23 +229,23 @@ const PhoneLoginPage: React.FC = () => {
                         <input
                           type="radio"
                           name="verificationMethod"
-                          value="sms"
-                          checked={verificationMethod === 'sms'}
-                          onChange={() => setVerificationMethod('sms')}
-                          className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300"
-                        />
-                        <span className="ml-2 text-sm text-gray-700">SMS</span>
-                      </label>
-                      <label className="inline-flex items-center">
-                        <input
-                          type="radio"
-                          name="verificationMethod"
                           value="whatsapp"
                           checked={verificationMethod === 'whatsapp'}
                           onChange={() => setVerificationMethod('whatsapp')}
                           className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300"
                         />
                         <span className="ml-2 text-sm text-gray-700">WhatsApp</span>
+                      </label>
+                      <label className="inline-flex items-center">
+                        <input
+                          type="radio"
+                          name="verificationMethod"
+                          value="sms"
+                          checked={verificationMethod === 'sms'}
+                          onChange={() => setVerificationMethod('sms')}
+                          className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300"
+                        />
+                        <span className="ml-2 text-sm text-gray-700">SMS</span>
                       </label>
                     </div>
                   ) : (
@@ -287,3 +281,178 @@ const PhoneLoginPage: React.FC = () => {
                         <p className="text-sm text-red-700" dir={isArabic ? 'rtl' : 'ltr'}>
                           {errorMessage}
                         </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
+                <div>
+                  <button
+                    type="submit"
+                    disabled={isLoading || !phoneNumber}
+                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50"
+                  >
+                    {isLoading ? (
+                      <span className="flex items-center">
+                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        {isArabic ? "جاري الإرسال..." : "Sending..."}
+                      </span>
+                    ) : (
+                      <span className="flex items-center">
+                        {isArabic ? "إرسال رمز التحقق" : "Send Verification Code"}
+                        <ArrowRight size={16} className="ml-2" />
+                      </span>
+                    )}
+                  </button>
+                </div>
+                
+                {/* Pre-configured test accounts */}
+                <div className="mt-6 border-t border-gray-200 pt-6">
+                  <h3 className="text-sm font-medium text-gray-600 mb-3">
+                    {isArabic ? "حسابات اختبار جاهزة" : "Ready-to-use Test Accounts"}
+                  </h3>
+                  <div className="space-y-2 text-sm text-gray-600">
+                    {Object.entries(TEST_PHONES).map(([phone, code]) => (
+                      <div key={phone} className="flex justify-between items-center p-2 bg-gray-50 rounded-md">
+                        <div>
+                          <span>{phone}</span>
+                          <span className="ml-2 text-xs text-gray-500">
+                            ({phone.startsWith('+967') ? 'Yemen' : phone.startsWith('+86') ? 'China' : 'Test'})
+                          </span>
+                        </div>
+                        <button 
+                          type="button"
+                          onClick={() => setPhoneNumber(phone)}
+                          className="text-xs text-primary-600 hover:text-primary-500"
+                        >
+                          {isArabic ? "استخدم" : "Use"}
+                        </button>
+                      </div>
+                    ))}
+                    <p className="text-xs text-gray-500 mt-2">
+                      {isArabic 
+                        ? "ملاحظة: رمز التحقق لحسابات الاختبار هو دائمًا 123456"
+                        : "Note: Verification code for test accounts is always 123456"}
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="mt-4 text-center">
+                  <button
+                    type="button"
+                    onClick={() => navigate('/auth')}
+                    className="text-sm text-primary-600 hover:text-primary-500"
+                  >
+                    {isArabic ? "العودة إلى صفحة تسجيل الدخول" : "Back to Login Page"}
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <form onSubmit={handleVerifyCode} className="space-y-6">
+                <div>
+                  <label htmlFor="code" className="block text-sm font-medium text-gray-700">
+                    {isArabic ? "رمز التحقق" : "Verification Code"}
+                  </label>
+                  <div className="mt-1 relative">
+                    <input
+                      id="code"
+                      name="code"
+                      type={showVerificationCode ? "text" : "password"}
+                      required
+                      value={verificationCode}
+                      onChange={(e) => setVerificationCode(e.target.value)}
+                      placeholder="123456"
+                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm pr-10"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowVerificationCode(!showVerificationCode)}
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
+                      tabIndex={-1}
+                    >
+                      {showVerificationCode ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
+                    <p className="mt-1 text-xs text-gray-500">
+                      {isArabic 
+                        ? `تم إرسال رمز التحقق إلى ${phoneNumber} عبر ${verificationMethod === 'whatsapp' ? 'واتساب' : 'رسالة نصية'}`
+                        : `Verification code sent to ${phoneNumber} via ${verificationMethod === 'whatsapp' ? 'WhatsApp' : 'SMS'}`}
+                    </p>
+                  </div>
+                </div>
+                
+                {errorMessage && (
+                  <div className="rounded-md bg-red-50 p-4 border border-red-200">
+                    <div className="flex">
+                      <AlertCircle className="h-5 w-5 text-red-400" aria-hidden="true" />
+                      <div className="ml-3">
+                        <p className="text-sm text-red-700" dir={isArabic ? 'rtl' : 'ltr'}>
+                          {errorMessage}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
+                <div>
+                  <button
+                    type="submit"
+                    disabled={isLoading || !verificationCode}
+                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50"
+                  >
+                    {isLoading ? (
+                      <span className="flex items-center">
+                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        {isArabic ? "جاري التحقق..." : "Verifying..."}
+                      </span>
+                    ) : (
+                      <span className="flex items-center">
+                        {isArabic ? "تحقق وتسجيل الدخول" : "Verify & Sign In"}
+                        <ArrowRight size={16} className="ml-2" />
+                      </span>
+                    )}
+                  </button>
+                </div>
+                
+                <div className="flex items-center justify-between">
+                  <button
+                    type="button"
+                    onClick={() => setStep('phone')}
+                    className="text-sm text-primary-600 hover:text-primary-500"
+                  >
+                    {isArabic ? "تغيير رقم الهاتف" : "Change Phone Number"}
+                  </button>
+                  
+                  <button
+                    type="button"
+                    onClick={handleSendCode}
+                    disabled={isLoading}
+                    className="text-sm text-primary-600 hover:text-primary-500"
+                  >
+                    {isArabic ? "إعادة إرسال الرمز" : "Resend Code"}
+                  </button>
+                </div>
+                
+                {/* For test accounts, show the verification code */}
+                {(phoneNumber === '+967774168043' || phoneNumber === '+8613138607996') && (
+                  <div className="mt-4 p-2 bg-blue-50 rounded-md text-center">
+                    <p className="text-sm text-blue-700">
+                      {isArabic ? "رمز التحقق لحساب الاختبار:" : "Test account verification code:"} <strong>123456</strong>
+                    </p>
+                  </div>
+                )}
+              </form>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default PhoneLoginPage;
