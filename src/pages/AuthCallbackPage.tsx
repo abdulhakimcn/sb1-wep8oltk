@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
+import { Helmet } from 'react-helmet-async';
 
 const AuthCallbackPage: React.FC = () => {
   const navigate = useNavigate();
@@ -61,31 +62,36 @@ const AuthCallbackPage: React.FC = () => {
   }, [navigate, location]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="text-center">
-        <img 
-          src="/drzone-icon.svg" 
-          alt="Dr.Zone AI Logo" 
-          className="h-16 w-16 mx-auto mb-4 animate-pulse" 
-        />
-        <h2 className="text-xl font-semibold mb-2">
-          {error ? 'Authentication Error' : 'Completing authentication...'}
-        </h2>
-        {error ? (
-          <div>
-            <p className="text-red-600 mb-4">{error}</p>
-            <p className="text-gray-600">Redirecting to login page...</p>
-          </div>
-        ) : (
-          <div>
-            <div className="flex justify-center mb-4">
-              <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary-500"></div>
+    <>
+      <Helmet>
+        <title>Authentication | Dr.Zone AI</title>
+      </Helmet>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <img 
+            src="/drzone-icon.svg" 
+            alt="Dr.Zone AI Logo" 
+            className="h-16 w-16 mx-auto mb-4 animate-pulse" 
+          />
+          <h2 className="text-xl font-semibold mb-2">
+            {error ? 'Authentication Error' : 'Completing authentication...'}
+          </h2>
+          {error ? (
+            <div>
+              <p className="text-red-600 mb-4">{error}</p>
+              <p className="text-gray-600">Redirecting to login page...</p>
             </div>
-            <p className="text-gray-600">Please wait while we sign you in.</p>
-          </div>
-        )}
+          ) : (
+            <div>
+              <div className="flex justify-center mb-4">
+                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary-500"></div>
+              </div>
+              <p className="text-gray-600">Please wait while we sign you in.</p>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
