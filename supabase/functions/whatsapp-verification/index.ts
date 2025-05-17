@@ -35,7 +35,8 @@ Deno.serve(async (req) => {
         JSON.stringify({ 
           success: true, 
           message: 'Verification code sent via WhatsApp',
-
+          // For testing, we'll return a fixed code
+          testCode: '123456'
         }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
