@@ -54,10 +54,6 @@ The platform supports multiple authentication methods:
 
 - **Email/Password**: Standard authentication with email verification
 - **Phone Authentication**: OTP-based authentication using phone numbers
-  - Test phone numbers:
-    - +967774168043 (Yemen)
-    - +8613138607996 (China)
-  - Test verification code: 123456
 
 ## Deployment
 
