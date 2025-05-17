@@ -25,12 +25,6 @@ const PhoneAuthForm: React.FC<PhoneAuthFormProps> = ({ onBackToEmail, accountTyp
   const [orgType, setOrgType] = useState('');
   const [orgCountry, setOrgCountry] = useState('');
 
-  // Test phone numbers
-  const TEST_PHONES = {
-    '+967774168043': '123456',
-    '+8613138607996': '123456'
-  };
-
   // Determine verification method based on phone number
   useEffect(() => {
     if (!manualMethodSelection && phoneNumber) {
@@ -86,50 +80,29 @@ const PhoneAuthForm: React.FC<PhoneAuthFormProps> = ({ onBackToEmail, accountTyp
     setErrorMessage(null);
     
     try {
-      // For test phone numbers, we'll simulate sending a code
-      if (Object.keys(TEST_PHONES).includes(phoneNumber)) {
-        console.log(`Test phone detected: ${phoneNumber}`);
-        // Simulate a delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        setStep('verification');
-      } else {
-        // For real phone numbers, use the appropriate channel
-        if (verificationMethod === 'whatsapp') {
-          try {
-            // Call our WhatsApp verification edge function
-            const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL || 'https://ehvdxtyoctgkrgrabfij.supabase.co'}/functions/v1/whatsapp-verification`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVodmR4dHlvY3Rna3JncmFiZmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5MTkyNTgsImV4cCI6MjA2MjQ5NTI1OH0.2-dNzfXFO0AKpcWmRQM0svOBCQQ7SBTH5U7ABMYifq8'}`
-              },
-              body: JSON.stringify({
-                phone: phoneNumber,
-                action: 'send'
-              })
-            });
-            
-            const data = await response.json();
-            if (!data.success) throw new Error(data.error || 'Failed to send WhatsApp verification');
-            
-            setStep('verification');
-          } catch (whatsappError) {
-            console.error('WhatsApp verification failed, falling back to SMS:', whatsappError);
-            // Fall back to SMS if WhatsApp fails
-            const { error } = await supabase.auth.signInWithOtp({
+      // For real phone numbers, use the appropriate channel
+      if (verificationMethod === 'whatsapp') {
+        try {
+          // Call our WhatsApp verification edge function
+          const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL || 'https://ehvdxtyoctgkrgrabfij.supabase.co'}/functions/v1/whatsapp-verification`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVodmR4dHlvY3Rna3JncmFiZmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5MTkyNTgsImV4cCI6MjA2MjQ5NTI1OH0.2-dNzfXFO0AKpcWmRQM0svOBCQQ7SBTH5U7ABMYifq8'}`
+            },
+            body: JSON.stringify({
               phone: phoneNumber,
-              options: {
-                channel: 'sms'
-              }
-            });
-            
-            if (error) throw error;
-            
-            setVerificationMethod('sms');
-            setStep('verification');
-          }
-        } else {
-          // Use standard SMS OTP
+              action: 'send'
+            })
+          });
+          
+          const data = await response.json();
+          if (!data.success) throw new Error(data.error || 'Failed to send WhatsApp verification');
+          
+          setStep('verification');
+        } catch (whatsappError) {
+          console.error('WhatsApp verification failed, falling back to SMS:', whatsappError);
+          // Fall back to SMS if WhatsApp fails
           const { error } = await supabase.auth.signInWithOtp({
             phone: phoneNumber,
             options: {
@@ -139,8 +112,21 @@ const PhoneAuthForm: React.FC<PhoneAuthFormProps> = ({ onBackToEmail, accountTyp
           
           if (error) throw error;
           
+          setVerificationMethod('sms');
           setStep('verification');
         }
+      } else {
+        // Use standard SMS OTP
+        const { error } = await supabase.auth.signInWithOtp({
+          phone: phoneNumber,
+          options: {
+            channel: 'sms'
+          }
+        });
+        
+        if (error) throw error;
+        
+        setStep('verification');
       }
     } catch (error) {
       console.error('Error sending verification code:', error);
@@ -174,15 +160,21 @@ const PhoneAuthForm: React.FC<PhoneAuthFormProps> = ({ onBackToEmail, accountTyp
     setErrorMessage(null);
     
     try {
-      // For test phone numbers, check against our predefined codes
-      if (Object.keys(TEST_PHONES).includes(phoneNumber)) {
-        if (verificationCode === TEST_PHONES[phoneNumber]) {
-          // For test accounts, sign in with OTP but don't actually verify
-          const { error } = await supabase.auth.signInWithOtp({
-            phone: phoneNumber,
-            options: {
-              shouldCreateUser: true,
-              data: {
+      // For real phone numbers, use the appropriate verification method
+      if (verificationMethod === 'whatsapp') {
+        try {
+          // Call our WhatsApp verification edge function
+          const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL || 'https://ehvdxtyoctgkrgrabfij.supabase.co'}/functions/v1/whatsapp-verification`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVodmR4dHlvY3Rna3JncmFiZmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5MTkyNTgsImV4cCI6MjA2MjQ5NTI1OH0.2-dNzfXFO0AKpcWmRQM0svOBCQQ7SBTH5U7ABMYifq8'}`
+            },
+            body: JSON.stringify({
+              phone: phoneNumber,
+              code: verificationCode,
+              action: 'verify',
+              userData: {
                 account_type: accountType,
                 ...(accountType === 'organization' && {
                   org_name: orgName,
@@ -190,86 +182,30 @@ const PhoneAuthForm: React.FC<PhoneAuthFormProps> = ({ onBackToEmail, accountTyp
                   org_country: orgCountry
                 })
               }
-            }
+            })
           });
           
-          if (error) throw error;
+          const data = await response.json();
+          if (!data.success) throw new Error(data.error || 'Failed to verify WhatsApp code');
+          
+          // Try to sign in the user
+          try {
+            await supabase.auth.signInWithPassword({
+              phone: phoneNumber,
+              password: verificationCode
+            });
+          } catch (signInError) {
+            // If sign in fails, try OTP sign in as fallback
+            await supabase.auth.signInWithOtp({
+              phone: phoneNumber,
+              options: { shouldCreateUser: true }
+            });
+          }
           
           // The auth state change listener will handle the redirect
-        } else {
-          throw new Error(isArabic
-            ? "رمز التحقق غير صحيح"
-            : "Invalid verification code");
-        }
-      } else {
-        // For real phone numbers, use the appropriate verification method
-        if (verificationMethod === 'whatsapp') {
-          try {
-            // Call our WhatsApp verification edge function
-            const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL || 'https://ehvdxtyoctgkrgrabfij.supabase.co'}/functions/v1/whatsapp-verification`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVodmR4dHlvY3Rna3JncmFiZmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5MTkyNTgsImV4cCI6MjA2MjQ5NTI1OH0.2-dNzfXFO0AKpcWmRQM0svOBCQQ7SBTH5U7ABMYifq8'}`
-              },
-              body: JSON.stringify({
-                phone: phoneNumber,
-                code: verificationCode,
-                action: 'verify',
-                userData: {
-                  account_type: accountType,
-                  ...(accountType === 'organization' && {
-                    org_name: orgName,
-                    org_type: orgType,
-                    org_country: orgCountry
-                  })
-                }
-              })
-            });
-            
-            const data = await response.json();
-            if (!data.success) throw new Error(data.error || 'Failed to verify WhatsApp code');
-            
-            // Try to sign in the user
-            try {
-              await supabase.auth.signInWithPassword({
-                phone: phoneNumber,
-                password: verificationCode
-              });
-            } catch (signInError) {
-              // If sign in fails, try OTP sign in as fallback
-              await supabase.auth.signInWithOtp({
-                phone: phoneNumber,
-                options: { shouldCreateUser: true }
-              });
-            }
-            
-            // The auth state change listener will handle the redirect
-          } catch (whatsappError) {
-            console.error('WhatsApp verification failed, falling back to SMS:', whatsappError);
-            // Fall back to standard SMS verification
-            const { error } = await supabase.auth.verifyOtp({
-              phone: phoneNumber,
-              token: verificationCode,
-              type: 'sms',
-              options: {
-                data: {
-                  account_type: accountType,
-                  ...(accountType === 'organization' && {
-                    org_name: orgName,
-                    org_type: orgType,
-                    org_country: orgCountry
-                  })
-                }
-              }
-            });
-            
-            if (error) throw error;
-            
-            // The auth state change listener will handle the redirect
-          }
-        } else {
-          // Use standard SMS OTP verification
+        } catch (whatsappError) {
+          console.error('WhatsApp verification failed, falling back to SMS:', whatsappError);
+          // Fall back to standard SMS verification
           const { error } = await supabase.auth.verifyOtp({
             phone: phoneNumber,
             token: verificationCode,
@@ -290,6 +226,27 @@ const PhoneAuthForm: React.FC<PhoneAuthFormProps> = ({ onBackToEmail, accountTyp
           
           // The auth state change listener will handle the redirect
         }
+      } else {
+        // Use standard SMS OTP verification
+        const { error } = await supabase.auth.verifyOtp({
+          phone: phoneNumber,
+          token: verificationCode,
+          type: 'sms',
+          options: {
+            data: {
+              account_type: accountType,
+              ...(accountType === 'organization' && {
+                org_name: orgName,
+                org_type: orgType,
+                org_country: orgCountry
+              })
+            }
+          }
+        });
+        
+        if (error) throw error;
+        
+        // The auth state change listener will handle the redirect
       }
     } catch (error) {
       console.error('Error verifying code:', error);
@@ -427,37 +384,6 @@ const PhoneAuthForm: React.FC<PhoneAuthFormProps> = ({ onBackToEmail, accountTyp
                 </span>
               )}
             </button>
-          </div>
-          
-          {/* Pre-configured test accounts */}
-          <div className="mt-6 border-t border-gray-200 pt-6">
-            <h3 className="text-sm font-medium text-gray-600 mb-3">
-              {isArabic ? "حسابات اختبار جاهزة" : "Ready-to-use Test Accounts"}
-            </h3>
-            <div className="space-y-2 text-sm text-gray-600">
-              {Object.entries(TEST_PHONES).map(([phone, code]) => (
-                <div key={phone} className="flex justify-between items-center p-2 bg-gray-50 rounded-md">
-                  <div>
-                    <span>{phone}</span>
-                    <span className="ml-2 text-xs text-gray-500">
-                      ({phone.startsWith('+967') ? 'Yemen' : phone.startsWith('+86') ? 'China' : 'Test'})
-                    </span>
-                  </div>
-                  <button 
-                    type="button"
-                    onClick={() => setPhoneNumber(phone)}
-                    className="text-xs text-primary-600 hover:text-primary-500"
-                  >
-                    {isArabic ? "استخدم" : "Use"}
-                  </button>
-                </div>
-              ))}
-              <p className="text-xs text-gray-500 mt-2">
-                {isArabic 
-                  ? "ملاحظة: رمز التحقق لحسابات الاختبار هو دائمًا 123456"
-                  : "Note: Verification code for test accounts is always 123456"}
-              </p>
-            </div>
           </div>
           
           <div className="mt-4 text-center">
@@ -615,15 +541,6 @@ const PhoneAuthForm: React.FC<PhoneAuthFormProps> = ({ onBackToEmail, accountTyp
               {isArabic ? "إعادة إرسال الرمز" : "Resend Code"}
             </button>
           </div>
-          
-          {/* For test accounts, show the verification code */}
-          {(phoneNumber === '+967774168043' || phoneNumber === '+8613138607996') && (
-            <div className="mt-4 p-2 bg-blue-50 rounded-md text-center">
-              <p className="text-sm text-blue-700">
-                {isArabic ? "رمز التحقق لحساب الاختبار:" : "Test account verification code:"} <strong>123456</strong>
-              </p>
-            </div>
-          )}
         </form>
       )}
     </div>
