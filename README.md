@@ -27,11 +27,6 @@ Dr.Zone AI is a comprehensive digital platform designed exclusively for medical 
 
 ### Installation
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/abdulhakimch/hakeemzone.com.git
-   cd hakeemzone.com
-   ```
 
 2. Install dependencies:
    ```bash
