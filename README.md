@@ -54,6 +54,7 @@ The platform supports multiple authentication methods:
 
 - **Email/Password**: Standard authentication with email verification
 - **Phone Authentication**: OTP-based authentication using phone numbers
+  - Test verification code: 123456
 
 ## Deployment
 
@@ -62,6 +63,18 @@ To deploy the application:
 ```bash
 ./deploy.sh
 ```
+
+This script will build the application and push it to the connected repository.
+
+## Contact
+
+For any inquiries, please contact:
+- Email: dr.hakim@drzone.ai
+- Phone: +967774168043
+
+## License
+
+© 2023-2025 HakeemZone. All rights reserved.
 
 This script will build the application and push it to the connected repository.
 
