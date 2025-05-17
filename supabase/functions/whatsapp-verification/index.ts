@@ -31,6 +31,26 @@ Deno.serve(async (req) => {
       // For now, we'll simulate success
       console.log(`Simulating WhatsApp verification code sent to ${phone}`);
       
+      // Add rate limiting check
+      const { data: rateLimitCheck, error: rateLimitError } = await supabaseClient
+        .from('auth_rate_limits')
+        .select('*')
+        .eq('phone', phone)
+        .gte('created_at', new Date(Date.now() - 60000).toISOString()) // Last minute
+        .order('created_at', { ascending: false });
+        
+      if (rateLimitError) {
+        console.error('Rate limit check error:', rateLimitError);
+      } else if (rateLimitCheck && rateLimitCheck.length >= 3) {
+        throw new Error('Rate limit exceeded. Please try again later.');
+      }
+      
+      // Log the attempt
+      await supabaseClient
+        .from('auth_rate_limits')
+        .insert([{ phone, action: 'send_code' }])
+        .select();
+      
       return new Response(
         JSON.stringify({ 
           success: true, 
