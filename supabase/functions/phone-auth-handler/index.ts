@@ -1,14 +1,17 @@
 // Follow Deno Deploy edge function format
 import { createClient } from 'npm:@supabase/supabase-js';
+import { Resend } from 'npm:resend';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+// Initialize Resend with API key
+const resend = new Resend('re_7oEonjYv_LzbjggsA4BhmVZeuPy3uDreu');
+
 // Pre-configured test phone numbers and their verification codes
 const TEST_PHONES = {
-  '+967774168043': '123456',
   '+8613138607996': '123456'
 };
 
@@ -27,8 +30,8 @@ Deno.serve(async (req) => {
 
     // Create Supabase client
     const supabaseClient = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '',
+      'https://ehvdxtyoctgkrgrabfij.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVodmR4dHlvY3Rna3JncmFiZmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5MTkyNTgsImV4cCI6MjA2MjQ5NTI1OH0.2-dNzfXFO0AKpcWmRQM0svOBCQQ7SBTH5U7ABMYifq8',
       { auth: { persistSession: false } }
     );
 
@@ -55,7 +58,7 @@ Deno.serve(async (req) => {
             const { data: newUser, error: createError } = await supabaseClient.auth.admin.createUser({
               phone,
               phone_confirm: true,
-              user_metadata: { 
+              user_metadata: {
                 is_test_account: true,
                 ...userData
               }
@@ -70,9 +73,9 @@ Deno.serve(async (req) => {
                 .insert({
                   user_id: newUser.user.id,
                   username: `user_${phone.replace(/\+/g, '')}`,
-                  full_name: userData?.full_name || `Test User (${phone})`,
-                  type: userData?.account_type || 'doctor',
-                  specialty: userData?.specialty || 'General Practice',
+                  full_name: `Test User (${phone})`,
+                  type: 'doctor',
+                  specialty: 'General Practice',
                   is_public: true
                 });
                 
@@ -93,45 +96,66 @@ Deno.serve(async (req) => {
       } else {
         // For real phones, use the appropriate channel
         if (channel === 'whatsapp') {
-          // In a real implementation, this would call a WhatsApp API
-          // For now, we'll simulate success
-          console.log(`Simulating WhatsApp verification for ${phone} with code ${code}`);
-          
-          // Verify the user's phone number
-          const { data, error } = await supabaseClient.auth.admin.getUserByPhone(phone);
-          
-          if (error && error.message !== 'User not found') {
-            throw error;
-          }
-          
-          // If user doesn't exist, create one
-          if (!data?.user) {
-            const { data: newUser, error: createError } = await supabaseClient.auth.admin.createUser({
-              phone,
-              phone_confirm: true,
-              user_metadata: userData || {}
+          try {
+            // Call our WhatsApp verification edge function
+            const response = await fetch('https://ehvdxtyoctgkrgrabfij.supabase.co/functions/v1/whatsapp-verification', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVodmR4dHlvY3Rna3JncmFiZmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5MTkyNTgsImV4cCI6MjA2MjQ5NTI1OH0.2-dNzfXFO0AKpcWmRQM0svOBCQQ7SBTH5U7ABMYifq8`
+              },
+              body: JSON.stringify({
+                phone,
+                code,
+                action: 'verify'
+              })
             });
             
-            if (createError) throw createError;
+            const data = await response.json();
+            if (!data.success) throw new Error(data.error || 'Failed to verify WhatsApp code');
             
-            // Create a profile for the new user
-            if (newUser?.user) {
-              const { error: profileError } = await supabaseClient
-                .from('profiles')
-                .insert({
-                  user_id: newUser.user.id,
-                  username: `user_${phone.replace(/\+/g, '')}`,
-                  full_name: userData?.full_name || `User (${phone})`,
-                  type: userData?.account_type || 'doctor',
-                  specialty: userData?.specialty || 'General Practice',
-                  is_public: true
-                });
-                
-              if (profileError) throw profileError;
+            // Try to sign in the user
+            try {
+              await supabaseClient.auth.signInWithPassword({
+                phone,
+                password: code
+              });
+            } catch (signInError) {
+              // If sign in fails, try OTP sign in as fallback
+              await supabaseClient.auth.signInWithOtp({
+                phone,
+                options: { shouldCreateUser: true }
+              });
             }
+            
+            return new Response(
+              JSON.stringify({ 
+                success: true, 
+                message: 'Phone verified successfully via WhatsApp' 
+              }),
+              { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+            );
+          } catch (whatsappError) {
+            console.error('WhatsApp verification failed, falling back to SMS:', whatsappError);
+            // Fall back to standard SMS verification
+            const { error } = await supabaseClient.auth.verifyOtp({
+              phone,
+              token: code,
+              type: 'sms'
+            });
+            
+            if (error) throw error;
+            
+            return new Response(
+              JSON.stringify({ 
+                success: true, 
+                message: 'Phone verified successfully via SMS' 
+              }),
+              { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+            );
           }
         } else {
-          // Standard SMS verification
+          // Use standard SMS OTP verification
           const { error } = await supabaseClient.auth.verifyOtp({
             phone,
             token: code,
@@ -139,15 +163,15 @@ Deno.serve(async (req) => {
           });
           
           if (error) throw error;
+          
+          return new Response(
+            JSON.stringify({ 
+              success: true, 
+              message: 'Phone verified successfully via SMS' 
+            }),
+            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
         }
-        
-        return new Response(
-          JSON.stringify({ 
-            success: true, 
-            message: 'Phone verified successfully' 
-          }),
-          { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-        );
       }
     } else if (action === 'send') {
       // For test phones, we don't actually send an SMS
@@ -155,29 +179,64 @@ Deno.serve(async (req) => {
         return new Response(
           JSON.stringify({ 
             success: true, 
-            message: 'Verification code sent (test mode)',
-            testCode: TEST_PHONES[phone]
+            message: 'Verification code sent (test mode)'
           }),
           { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       } else {
         // For real phones, use the appropriate channel
         if (channel === 'whatsapp') {
-          // In a real implementation, this would call a WhatsApp API service
-          // For now, we'll simulate success
-          console.log(`Simulating WhatsApp verification code sent to ${phone}`);
-          
-          return new Response(
-            JSON.stringify({ 
-              success: true, 
-              message: 'Verification code sent via WhatsApp' 
-            }),
-            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-          );
+          try {
+            // Call our WhatsApp verification edge function
+            const response = await fetch('https://ehvdxtyoctgkrgrabfij.supabase.co/functions/v1/whatsapp-verification', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVodmR4dHlvY3Rna3JncmFiZmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5MTkyNTgsImV4cCI6MjA2MjQ5NTI1OH0.2-dNzfXFO0AKpcWmRQM0svOBCQQ7SBTH5U7ABMYifq8`
+              },
+              body: JSON.stringify({
+                phone,
+                action: 'send'
+              })
+            });
+            
+            const data = await response.json();
+            if (!data.success) throw new Error(data.error || 'Failed to send WhatsApp verification');
+            
+            return new Response(
+              JSON.stringify({ 
+                success: true, 
+                message: 'Verification code sent via WhatsApp' 
+              }),
+              { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+            );
+          } catch (whatsappError) {
+            console.error('WhatsApp verification failed, falling back to SMS:', whatsappError);
+            // Fall back to SMS if WhatsApp fails
+            const { error } = await supabaseClient.auth.signInWithOtp({
+              phone,
+              options: {
+                channel: 'sms'
+              }
+            });
+            
+            if (error) throw error;
+            
+            return new Response(
+              JSON.stringify({ 
+                success: true, 
+                message: 'Verification code sent via SMS' 
+              }),
+              { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+            );
+          }
         } else {
-          // Use Supabase to send SMS OTP
+          // Use standard SMS OTP
           const { error } = await supabaseClient.auth.signInWithOtp({
-            phone
+            phone,
+            options: {
+              channel: 'sms'
+            }
           });
           
           if (error) throw error;
