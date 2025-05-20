@@ -102,17 +102,6 @@ function App() {
     </div>
   );
 
-  // Handle verification code in URL for root component
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get("code");
-
-    if (code) {
-      console.log('Verification code detected in root component, redirecting to auth callback');
-      window.location.href = `/auth/callback?code=${code}`;
-    }
-  }, []);
-
   return (
     <HelmetProvider>
       <AuthProvider>
