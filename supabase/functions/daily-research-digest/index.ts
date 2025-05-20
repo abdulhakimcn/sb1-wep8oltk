@@ -8,7 +8,7 @@ const corsHeaders = {
 };
 
 // Initialize Resend with API key
-const resend = new Resend('re_7oEonjYv_LzbjggsA4BhmVZeuPy3uDreu');
+const resend = new Resend('re_TzNVt4B8_67yTBenM1TfrdcQ63NGEX4LK');
 
 Deno.serve(async (req) => {
   // Handle CORS preflight requests
