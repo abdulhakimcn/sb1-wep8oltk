@@ -3,21 +3,23 @@ import { Auth as SupabaseAuth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { supabase, isValidEmailDomain, ALLOWED_EMAIL_DOMAINS } from '../lib/supabase';
 import { useTranslation } from 'react-i18next';
-import { Link, useSearchParams, useLocation } from 'react-router-dom';
-import { Code, AlertCircle, Phone, Mail, AlertTriangle, Eye, EyeOff, Facebook, Github, Apple, Twitter, Linkedin, Watch as Wechat, Home, HelpCircle, Building, User } from 'lucide-react';
+import { Link, useSearchParams, useLocation, useNavigate } from 'react-router-dom';
+import { Code, AlertCircle, Phone, Mail, AlertTriangle, Eye, EyeOff, Facebook, Apple, Twitter, Linkedin, Github, Watch as Wechat, Home, HelpCircle, Building, User } from 'lucide-react';
 import PhoneAuthForm from './PhoneAuthForm';
 import AuthForm from './AuthForm';
+import EmailOTPForm from './EmailOTPForm';
 
 const Auth: React.FC = () => {
   console.log('Auth component rendering'); // Debug log
   const { t, i18n } = useTranslation();
   const [searchParams] = useSearchParams();
   const location = useLocation();
+  const navigate = useNavigate();
   const [showDevOption, setShowDevOption] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState<string | null>(null);
-  const [authView, setAuthView] = useState<'email' | 'phone'>('email');
+  const [authView, setAuthView] = useState<'email' | 'phone' | 'otp'>('email');
   const [view, setView] = useState<'sign_in' | 'sign_up' | 'forgotten_password'>(
     searchParams.get('view') === 'sign_up' ? 'sign_up' : 'sign_in'
   );
@@ -40,10 +42,11 @@ const Auth: React.FC = () => {
           setErrorMessage(error.message);
         } else if (data.session) {
           console.log('Session established successfully');
+          navigate('/myzone');
         }
       });
     }
-  }, [location]);
+  }, [location, navigate]);
 
   // Listen for auth state changes to detect errors
   useEffect(() => {
@@ -51,10 +54,14 @@ const Auth: React.FC = () => {
       if (_event === 'USER_UPDATED' && !session) {
         setErrorMessage(null);
       }
+      
+      if (_event === 'SIGNED_IN' && session) {
+        navigate('/myzone');
+      }
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [navigate]);
 
   // Custom error handler for auth UI
   const handleAuthError = (error: Error) => {
@@ -70,14 +77,16 @@ const Auth: React.FC = () => {
       const emailInput = document.querySelector('input[type="email"]') as HTMLInputElement;
       if (emailInput && emailInput.value) {
         const domain = emailInput.value.split('@')[1]?.toLowerCase();
-        if (domain === 'hakeemzone.com') {
-          setErrorMessage("This email appears valid. Please try again or contact support if the issue persists.");
+        if (domain === 'hakeemzone.com' || domain === 'drzone.ai') {
+          setErrorMessage("This email appears valid. Please try again or contact support@drzone.ai if the issue persists.");
         } else {
           setErrorMessage(error.message);
         }
       } else {
         setErrorMessage(error.message);
       }
+    } else if (error.message.includes('Failed to send OTP')) {
+      setErrorMessage(error.message + " Please contact support@drzone.ai if the issue persists.");
     } else {
       setErrorMessage(error.message);
     }
@@ -180,7 +189,7 @@ const Auth: React.FC = () => {
             <img 
               src="/drzone-icon.svg" 
               alt="Dr.Zone AI Logo" 
-              className="h-20 w-20" 
+              className="h-20 w-20 animate-pulse" 
             />
           </div>
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
@@ -209,7 +218,7 @@ const Auth: React.FC = () => {
               authView === 'email'
                 ? 'bg-primary-500 text-white'
                 : 'bg-white text-gray-700 hover:bg-gray-50'
-            }`}
+            } transition-colors`}
           >
             <Mail size={16} className="mr-2" />
             {isArabic ? "البريد الإلكتروني" : "Email"}
@@ -217,19 +226,31 @@ const Auth: React.FC = () => {
           <button
             type="button"
             onClick={() => setAuthView('phone')}
-            className={`relative -ml-px inline-flex items-center justify-center flex-1 px-4 py-2 text-sm font-medium rounded-r-md ${
+            className={`relative -ml-px inline-flex items-center justify-center flex-1 px-4 py-2 text-sm font-medium ${
               authView === 'phone'
                 ? 'bg-primary-500 text-white'
                 : 'bg-white text-gray-700 hover:bg-gray-50'
-            }`}
+            } transition-colors`}
           >
             <Phone size={16} className="mr-2" />
             {isArabic ? "رقم الهاتف" : "Phone"}
           </button>
+          <button
+            type="button"
+            onClick={() => setAuthView('otp')}
+            className={`relative -ml-px inline-flex items-center justify-center flex-1 px-4 py-2 text-sm font-medium rounded-r-md ${
+              authView === 'otp'
+                ? 'bg-primary-500 text-white'
+                : 'bg-white text-gray-700 hover:bg-gray-50'
+            } transition-colors`}
+          >
+            <Code size={16} className="mr-2" />
+            {isArabic ? "رمز التحقق" : "OTP"}
+          </button>
         </div>
         
         {errorMessage && (
-          <div className={`rounded-md ${errorMessage.includes('verification code') ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'} p-4 border`}>
+          <div className={`rounded-md ${errorMessage.includes('verification code') ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'} p-4 border animate-fade-in`}>
             <div className="flex">
               <AlertCircle className={`h-5 w-5 ${errorMessage.includes('verification code') ? 'text-green-400' : 'text-red-400'}`} aria-hidden="true" />
               <div className="ml-3">
@@ -242,7 +263,7 @@ const Auth: React.FC = () => {
         )}
         
         {emailError && authView === 'email' && (
-          <div className="rounded-md bg-yellow-50 p-4 border border-yellow-200">
+          <div className="rounded-md bg-yellow-50 p-4 border border-yellow-200 animate-fade-in">
             <div className="flex">
               <AlertTriangle className="h-5 w-5 text-yellow-400" aria-hidden="true" />
               <div className="ml-3">
@@ -266,15 +287,20 @@ const Auth: React.FC = () => {
               onViewChange={setView} 
               accountType={accountType}
             />
-          ) : (
+          ) : authView === 'phone' ? (
             <PhoneAuthForm 
               onBackToEmail={() => setAuthView('email')} 
               accountType={accountType}
             />
+          ) : (
+            <EmailOTPForm 
+              onVerificationSuccess={() => navigate('/myzone')}
+              onBackToLogin={() => setAuthView('email')}
+            />
           )}
           
           {/* Organization Account Option */}
-          {view === 'sign_up' && (
+          {view === 'sign_up' && authView !== 'otp' && (
             <div className="mt-6 pt-4 border-t border-gray-200">
               <div className="text-center">
                 <p className="text-sm text-gray-600">
@@ -285,7 +311,7 @@ const Auth: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setAccountType(accountType === 'doctor' ? 'organization' : 'doctor')}
-                  className="mt-2 text-sm font-medium text-primary-600 hover:text-primary-500"
+                  className="mt-2 text-sm font-medium text-primary-600 hover:text-primary-500 transition-colors"
                 >
                   {accountType === 'doctor' 
                     ? (isArabic ? "إنشاء حساب مؤسسة" : "Create an organization account") 
@@ -301,7 +327,7 @@ const Auth: React.FC = () => {
               <div className="text-center">
                 <Link 
                   to="/dev-login"
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700"
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 transition-colors"
                 >
                   <Code size={16} className="mr-2" />
                   {t('auth.devLogin')}
@@ -311,7 +337,7 @@ const Auth: React.FC = () => {
                 </p>
                 <button
                   onClick={() => setShowDevOption(false)}
-                  className="mt-2 text-xs text-gray-500 hover:text-gray-700"
+                  className="mt-2 text-xs text-gray-500 hover:text-gray-700 transition-colors"
                 >
                   {t('auth.backToRegularLogin')}
                 </button>
@@ -320,7 +346,7 @@ const Auth: React.FC = () => {
               <div className="text-center">
                 <button
                   onClick={() => setShowDevOption(true)}
-                  className="text-xs text-gray-400 hover:text-gray-600"
+                  className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
                 >
                   {t('auth.developerMode')}
                 </button>
@@ -331,11 +357,11 @@ const Auth: React.FC = () => {
 
         {/* Back to Homepage and Help Links */}
         <div className="mt-4 flex justify-between items-center text-sm">
-          <Link to="/" className="flex items-center text-primary-600 hover:text-primary-700">
+          <Link to="/" className="flex items-center text-primary-600 hover:text-primary-700 transition-colors">
             <Home size={16} className="mr-1" />
             <span>{isArabic ? "العودة للصفحة الرئيسية" : "Back to Homepage"}</span>
           </Link>
-          <Link to="/help" className="flex items-center text-primary-600 hover:text-primary-700">
+          <Link to="/help" className="flex items-center text-primary-600 hover:text-primary-700 transition-colors">
             <HelpCircle size={16} className="mr-1" />
             <span>{isArabic ? "تحتاج مساعدة للانضمام؟" : "Need help joining?"}</span>
           </Link>
